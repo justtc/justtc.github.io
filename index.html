@@ -155,6 +155,84 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/15/LeetCodeDay7%E9%93%BE%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Just TC">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Just Do It Later">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/15/LeetCodeDay7%E9%93%BE%E8%A1%A8/" class="post-title-link" itemprop="url">LeetCodeDay7链表</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-15 10:28:44 / 修改时间：14:52:31" itemprop="dateCreated datePublished" datetime="2022-06-15T10:28:44+08:00">2022-06-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1、给定一个链表，删除链表的倒数第-n-个结点，并且返回链表的头结点。"><a href="#1、给定一个链表，删除链表的倒数第-n-个结点，并且返回链表的头结点。" class="headerlink" title="1、给定一个链表，删除链表的倒数第 n* *个结点，并且返回链表的头结点。"></a>1、给定一个链表，删除链表的倒数第 <code>n</code>* *个结点，并且返回链表的头结点。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">removeNthFromEnd</span><span class="params">(ListNode head, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">low</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">fast</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="keyword">while</span> (n &gt; <span class="number">0</span> &amp;&amp; fast != <span class="literal">null</span>)&#123;</span><br><span class="line">        fast = fast.next;</span><br><span class="line">        n--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">0</span> || fast == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head.next == <span class="literal">null</span> ? <span class="literal">null</span> : head.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (fast.next != <span class="literal">null</span>)&#123;</span><br><span class="line">        low = low.next;</span><br><span class="line">        fast = fast.next;</span><br><span class="line">    &#125;</span><br><span class="line">    low.next = low.next.next == <span class="literal">null</span> ? <span class="literal">null</span> : low.next.next;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用栈储存然后弹出n个，或者用双指针，fast先走n步，low就在要删的节点前一个，再处理一下边界值就可以了</p>
+<h3 id="2、给定一个链表，返回链表开始入环的第一个节点。-从链表的头节点开始沿着-next-指针进入环的第一个节点为环的入口节点。如果链表无环，则返回-null。为了表示给定链表中的环，我们使用整数-pos-来表示链表尾连接到链表中的位置（索引从-0-开始）。-如果-pos-是-1，则在该链表中没有环。注意，pos-仅仅是用于标识环的情况，并不会作为参数传递到函数中。说明：不允许修改给定的链表。"><a href="#2、给定一个链表，返回链表开始入环的第一个节点。-从链表的头节点开始沿着-next-指针进入环的第一个节点为环的入口节点。如果链表无环，则返回-null。为了表示给定链表中的环，我们使用整数-pos-来表示链表尾连接到链表中的位置（索引从-0-开始）。-如果-pos-是-1，则在该链表中没有环。注意，pos-仅仅是用于标识环的情况，并不会作为参数传递到函数中。说明：不允许修改给定的链表。" class="headerlink" title="2、给定一个链表，返回链表开始入环的第一个节点。 从链表的头节点开始沿着 next 指针进入环的第一个节点为环的入口节点。如果链表无环，则返回 null。为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意，pos 仅仅是用于标识环的情况，并不会作为参数传递到函数中。说明：不允许修改给定的链表。"></a>2、给定一个链表，返回链表开始入环的第一个节点。 从链表的头节点开始沿着 next 指针进入环的第一个节点为环的入口节点。如果链表无环，则返回 null。为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意，pos 仅仅是用于标识环的情况，并不会作为参数传递到函数中。说明：不允许修改给定的链表。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">detectCycle</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">low</span> <span class="operator">=</span> head != <span class="literal">null</span> ? head.next : <span class="literal">null</span>;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">fast</span> <span class="operator">=</span> low != <span class="literal">null</span> ?head.next.next : <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (head == <span class="literal">null</span> || low == <span class="literal">null</span> || fast == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (low != fast)&#123;</span><br><span class="line">        low = low.next;</span><br><span class="line">        <span class="keyword">if</span> (fast.next != <span class="literal">null</span> &amp;&amp; fast.next.next != <span class="literal">null</span>)&#123;</span><br><span class="line">            fast = fast.next.next;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    low = head;</span><br><span class="line">    <span class="keyword">while</span> (low != fast)&#123;</span><br><span class="line">        low = low.next;</span><br><span class="line">        fast = fast.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> low;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有环的话，用快慢指针，快指针走两步慢指针走一步，当快指针等于慢指针的时候，慢指针回到头节点，两个节点一步一步前进直至相遇，这个节点就是入环节点。</p>
+<p>或者用hashMap来做</p>
+<h3 id="3、给定两个单链表的头节点-headA-和-headB-，请找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回-null-。题目数据-保证-整个链式结构中不存在环。注意-，函数返回结果后，链表必须-保持其原始结构。"><a href="#3、给定两个单链表的头节点-headA-和-headB-，请找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回-null-。题目数据-保证-整个链式结构中不存在环。注意-，函数返回结果后，链表必须-保持其原始结构。" class="headerlink" title="3、给定两个单链表的头节点 headA 和 headB ，请找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。题目数据 保证 整个链式结构中不存在环。注意**，函数返回结果后，链表必须 **保持其原始结构。"></a>3、给定两个单链表的头节点 <code>headA</code> 和 <code>headB</code> ，请找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 <code>null</code> 。题目数据 <strong>保证</strong> 整个链式结构中不存在环。注意**，函数返回结果后，链表必须 **保持其原始结构。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">nodeA</span> <span class="operator">=</span> headA;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">nodeB</span> <span class="operator">=</span> headB;</span><br><span class="line">    <span class="keyword">while</span> (headA.next != <span class="literal">null</span>)&#123;</span><br><span class="line">        headA = headA.next;</span><br><span class="line">        num++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (headB.next != <span class="literal">null</span>)&#123;</span><br><span class="line">        headB = headB.next;</span><br><span class="line">        num--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (headA != headB)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (num &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">while</span> (num &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            nodeA = nodeA.next;</span><br><span class="line">            num--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (num &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            nodeB = nodeB.next;</span><br><span class="line">            num++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (nodeA != nodeB)&#123;</span><br><span class="line">        nodeA = nodeA.next;</span><br><span class="line">        nodeB = nodeB.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nodeA;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>两个列表都走到最后，如果末尾节点相等则相交，不相等则不相交。（每个节点只能不指向任何节点或者指向一个节点，如果是X形相交，相交点必然指向两个不同的节点，所以只能是V型或者Y型）</p>
+<p>两个列表长度不一的话，长的链表先走差值步，然后和短列表一起走到相等的节点，就是相交起始节点</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/14/LeetCodeDay6%E5%AD%97%E7%AC%A6%E4%B8%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -787,7 +865,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -800,7 +878,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
