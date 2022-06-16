@@ -155,6 +155,84 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/16/LeetCodeDay8%E9%93%BE%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Just TC">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Just Do It Later">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/16/LeetCodeDay8%E9%93%BE%E8%A1%A8/" class="post-title-link" itemprop="url">LeetCodeDay8链表</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-16 10:13:58 / 修改时间：17:35:42" itemprop="dateCreated datePublished" datetime="2022-06-16T10:13:58+08:00">2022-06-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1、给定单链表的头节点-head-，请反转链表，并返回反转后的链表的头节点。"><a href="#1、给定单链表的头节点-head-，请反转链表，并返回反转后的链表的头节点。" class="headerlink" title="1、给定单链表的头节点 head ，请反转链表，并返回反转后的链表的头节点。"></a>1、给定单链表的头节点 <code>head</code> ，请反转链表，并返回反转后的链表的头节点。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">reverseList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (head == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">next</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">pre</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">while</span> (next != <span class="literal">null</span>)&#123;</span><br><span class="line">        next = head.next;</span><br><span class="line">        head.next = pre;</span><br><span class="line">        pre = head;</span><br><span class="line">        head = next == <span class="literal">null</span> ? head : next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用pre 和 next 记录之前和之后的节点，每个节点先指向前一个节点</p>
+<h3 id="2、给定两个-非空链表-l1和-l2-来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位数字。将这两数相加会返回一个新的链表。可以假设除了数字-0-之外，这两个数字都不会以零开头。"><a href="#2、给定两个-非空链表-l1和-l2-来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位数字。将这两数相加会返回一个新的链表。可以假设除了数字-0-之外，这两个数字都不会以零开头。" class="headerlink" title="2、给定两个 非空链表 l1和 l2 来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位数字。将这两数相加会返回一个新的链表。可以假设除了数字 0 之外，这两个数字都不会以零开头。"></a>2、给定两个 非空链表 l1和 l2 来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位数字。将这两数相加会返回一个新的链表。可以假设除了数字 0 之外，这两个数字都不会以零开头。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">reverseList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">next</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">pre</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">while</span> (next != <span class="literal">null</span>)&#123;</span><br><span class="line">        next = head.next;</span><br><span class="line">        head.next = pre;</span><br><span class="line">        pre = head;</span><br><span class="line">        head = next == <span class="literal">null</span> ? head : next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> &#123;</span><br><span class="line">    l1 = reverseList(l1);</span><br><span class="line">    l2 = reverseList(l2);</span><br><span class="line">    <span class="type">int</span> <span class="variable">carry</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">nextNode</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">while</span> (l1 != <span class="literal">null</span> || l2 != <span class="literal">null</span> || carry != <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">val1</span> <span class="operator">=</span> l1 == <span class="literal">null</span> ? <span class="number">0</span> : l1.val;</span><br><span class="line">        <span class="type">int</span> <span class="variable">val2</span> <span class="operator">=</span> l2 == <span class="literal">null</span> ? <span class="number">0</span> : l2.val;</span><br><span class="line">        <span class="type">int</span> <span class="variable">val</span> <span class="operator">=</span> val1 + val2 + carry;</span><br><span class="line">        carry = val/<span class="number">10</span>;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">node</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ListNode</span>(val % <span class="number">10</span>);</span><br><span class="line">        node.next = nextNode;</span><br><span class="line">        nextNode = node;</span><br><span class="line">        l1 = l1 == <span class="literal">null</span> ? <span class="literal">null</span> : l1.next;</span><br><span class="line">        l2 = l2 == <span class="literal">null</span> ? <span class="literal">null</span> : l2.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nextNode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>倒转链表再相加</p>
+<p>如果能修改原链表，可以用栈来做</p>
+<h3 id="3、给定一个单链表-L-的头节点-head-，单链表-L-表示为：-L0-→-L1-→-…-→-Ln-1-→-Ln-请将其重新排列后变为：L0-→-Ln-→-L1-→-Ln-1-→-L2-→-Ln-2-→-不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。"><a href="#3、给定一个单链表-L-的头节点-head-，单链表-L-表示为：-L0-→-L1-→-…-→-Ln-1-→-Ln-请将其重新排列后变为：L0-→-Ln-→-L1-→-Ln-1-→-L2-→-Ln-2-→-不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。" class="headerlink" title="3、给定一个单链表 L 的头节点 head ，单链表 L 表示为： L0 → L1 → … → Ln-1 → Ln 请将其重新排列后变为：L0 → Ln → L1 → Ln-1 → L2 → Ln-2 → 不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。"></a>3、给定一个单链表 L 的头节点 head ，单链表 L 表示为： L0 → L1 → … → Ln-1 → Ln 请将其重新排列后变为：L0 → Ln → L1 → Ln-1 → L2 → Ln-2 → 不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reorderList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">curNode</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (curNode != <span class="literal">null</span>)&#123;</span><br><span class="line">        curNode = curNode.next;</span><br><span class="line">        n++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> ((n &amp; <span class="number">1</span>) == <span class="number">0</span>)&#123;</span><br><span class="line">            n = n - (n - <span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            n = n - n /<span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        curNode = head;</span><br><span class="line">        <span class="keyword">while</span> (n &gt; <span class="number">1</span>)&#123;</span><br><span class="line">            curNode = curNode.next;</span><br><span class="line">            n--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">revertNode</span> <span class="operator">=</span> curNode.next;</span><br><span class="line">        curNode.next = <span class="literal">null</span>;</span><br><span class="line">        revertNode = reverseList(revertNode);</span><br><span class="line">        ListNode nextNode,nextRevertNode;</span><br><span class="line">        <span class="keyword">while</span> (revertNode != <span class="literal">null</span>)&#123;</span><br><span class="line">            nextNode = head.next;</span><br><span class="line">            nextRevertNode = revertNode.next;</span><br><span class="line">            head.next = revertNode;</span><br><span class="line">            revertNode.next = nextNode;</span><br><span class="line">            head = nextNode;</span><br><span class="line">            revertNode = nextRevertNode;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">reverseList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">next</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">pre</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">while</span> (next != <span class="literal">null</span>)&#123;</span><br><span class="line">        next = head.next;</span><br><span class="line">        head.next = pre;</span><br><span class="line">        pre = head;</span><br><span class="line">        head = next == <span class="literal">null</span> ? head : next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>找到需要重合的后半部分，将其逆序，然后依次嵌入即可。</p>
+<p>可以用快慢指针找到中点然后将中点及其后的节点逆序，然后依次嵌入</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/15/redis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -972,7 +1050,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
