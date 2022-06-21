@@ -155,6 +155,147 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/21/LeetCodeDay13%E6%A0%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Just TC">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Just Do It Later">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/21/LeetCodeDay13%E6%A0%88/" class="post-title-link" itemprop="url">LeetCode13栈</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-21 15:05:27 / 修改时间：18:41:27" itemprop="dateCreated datePublished" datetime="2022-06-21T15:05:27+08:00">2022-06-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1、给定非负整数数组-heights-，数组中的数字用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为-1-。求在该柱状图中，能够勾勒出来的矩形的最大面积。"><a href="#1、给定非负整数数组-heights-，数组中的数字用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为-1-。求在该柱状图中，能够勾勒出来的矩形的最大面积。" class="headerlink" title="1、给定非负整数数组 heights ，数组中的数字用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。求在该柱状图中，能够勾勒出来的矩形的最大面积。"></a>1、给定非负整数数组 heights ，数组中的数字用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。求在该柱状图中，能够勾勒出来的矩形的最大面积。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">largestRectangleArea1</span><span class="params">(<span class="type">int</span>[] heights)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> heights.length;</span><br><span class="line">    <span class="type">int</span>[] left = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    <span class="type">int</span>[] right = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    Arrays.fill(right, n);</span><br><span class="line"></span><br><span class="line">    Deque&lt;Integer&gt; mono_stack = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="keyword">while</span> (!mono_stack.isEmpty() &amp;&amp; heights[mono_stack.peek()] &gt;= heights[i]) &#123;</span><br><span class="line">            right[mono_stack.peek()] = i;</span><br><span class="line">            mono_stack.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        left[i] = (mono_stack.isEmpty() ? -<span class="number">1</span> : mono_stack.peek());</span><br><span class="line">        mono_stack.push(i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        ans = Math.max(ans, (right[i] - left[i] - <span class="number">1</span>) * heights[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>左右两个数组分别找到高于heights[i]的左右边界，边界中的值就是宽，heights[i]就是高</p>
+<p>精髓在于栈里会将大于heights[i]的数都清退，然后面上的数就是边界</p>
+<h3 id="2、给定一个由-0-和-1-组成的矩阵-matrix-，找出只包含-1-的最大矩形，并返回其面积。注意：此题-matrix-输入格式为一维-01-字符串数组。"><a href="#2、给定一个由-0-和-1-组成的矩阵-matrix-，找出只包含-1-的最大矩形，并返回其面积。注意：此题-matrix-输入格式为一维-01-字符串数组。" class="headerlink" title="2、给定一个由 0 和 1 组成的矩阵 matrix ，找出只包含 1 的最大矩形，并返回其面积。注意：此题 matrix 输入格式为一维 01 字符串数组。"></a>2、给定一个由 <code>0</code> 和 <code>1</code> 组成的矩阵 <code>matrix</code> ，找出只包含 <code>1</code> 的最大矩形，并返回其面积。注意：此题 <code>matrix</code> 输入格式为一维 <code>01</code> 字符串数组。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maximalRectangle</span><span class="params">(String[] matrix)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> matrix.length;</span><br><span class="line">    <span class="keyword">if</span> (m == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> matrix[<span class="number">0</span>].length();</span><br><span class="line">    <span class="type">int</span>[][] dp = <span class="keyword">new</span> <span class="title class_">int</span>[m][n];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (matrix[i].charAt(j) == <span class="string">&#x27;1&#x27;</span>) &#123;</span><br><span class="line">                dp[i][j] = (j == <span class="number">0</span> ? <span class="number">0</span> : dp[i][j - <span class="number">1</span>]) + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">ret</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span>[] heights = <span class="keyword">new</span> <span class="title class_">int</span>[m];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; m; j++) &#123;</span><br><span class="line">            heights[j] = dp[j][i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span>[] left = <span class="keyword">new</span> <span class="title class_">int</span>[m];</span><br><span class="line">        <span class="type">int</span>[] right = <span class="keyword">new</span> <span class="title class_">int</span>[m];</span><br><span class="line">        Arrays.fill(right, m);</span><br><span class="line">        Deque&lt;Integer&gt; mono_stack = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; m; ++j) &#123;</span><br><span class="line">            <span class="keyword">while</span> (!mono_stack.isEmpty() &amp;&amp; heights[mono_stack.peek()] &gt;= heights[j]) &#123;</span><br><span class="line">                right[mono_stack.peek()] = j;</span><br><span class="line">                mono_stack.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            left[j] = (mono_stack.isEmpty() ? -<span class="number">1</span> : mono_stack.peek());</span><br><span class="line">            mono_stack.push(j);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; m; ++j) &#123;</span><br><span class="line">            ret = Math.max(ret, (right[j] - left[j] - <span class="number">1</span>) * heights[j]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将二维图转化为柱状图，依据每层柱状图进行计算。淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦淦</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/20/%E9%B1%BC%E7%BC%B8%E9%80%A0%E6%99%AF%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Just TC">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Just Do It Later">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/20/%E9%B1%BC%E7%BC%B8%E9%80%A0%E6%99%AF%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">鱼缸造景学习</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-20 20:59:34 / 修改时间：21:00:31" itemprop="dateCreated datePublished" datetime="2022-06-20T20:59:34+08:00">2022-06-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%B1%BC%E7%BC%B8%E9%80%A0%E6%99%AF/" itemprop="url" rel="index"><span itemprop="name">鱼缸造景</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/20/LeetCodeDay12%E6%A0%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -816,177 +957,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/13/LeetCodeDay5%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="Just TC">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Just Do It Later">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/13/LeetCodeDay5%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-title-link" itemprop="url">LeetCodeDay5字符串</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-06-13 15:13:50 / 修改时间：18:22:10" itemprop="dateCreated datePublished" datetime="2022-06-13T15:13:50+08:00">2022-06-13</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1、给定两个字符串-s1-和-s2，写一个函数来判断-s2-是否包含-s1-的某个变位词。换句话说，第一个字符串的排列之一是第二个字符串的-子串-。"><a href="#1、给定两个字符串-s1-和-s2，写一个函数来判断-s2-是否包含-s1-的某个变位词。换句话说，第一个字符串的排列之一是第二个字符串的-子串-。" class="headerlink" title="1、给定两个字符串 s1 和 s2，写一个函数来判断 s2 是否包含 s1 **的某个变位词。换句话说，第一个字符串的排列之一是第二个字符串的 **子串 。"></a>1、给定两个字符串 <code>s1</code> 和 <code>s2</code>，写一个函数来判断 <code>s2</code> 是否包含 <code>s1</code> **的某个变位词。换句话说，第一个字符串的排列之一是第二个字符串的 **子串 。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">checkInclusion</span><span class="params">(String s1, String s2)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (s1.length() &gt; s2.length())&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span>[]nums1 = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">26</span>];</span><br><span class="line">    <span class="type">int</span>[]nums2 = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">26</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s1.length(); i++) &#123;</span><br><span class="line">        nums1[s1.charAt(i) - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">        nums2[s2.charAt(i) - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="variable">L</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">R</span> <span class="operator">=</span> s1.length() - <span class="number">1</span>;</span><br><span class="line">    A:<span class="keyword">while</span> (R &lt; s2.length())&#123;</span><br><span class="line">        B:<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums1.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums1[i] != nums2[i])&#123;</span><br><span class="line">                nums2[s2.charAt(L++) - <span class="string">&#x27;a&#x27;</span>]--;</span><br><span class="line">                <span class="keyword">if</span> (R &lt; s2.length() - <span class="number">1</span>)&#123;</span><br><span class="line">                    nums2[s2.charAt(++R) - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    ++R;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">continue</span> A;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>滑动窗口思想，用int数组保存两个字符串相同窗口内字母出现的次数，然后循环看是不是完全相等，不是则滑动窗口，直至滑动到s2窗口小于s1长度</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">checkInclusion</span><span class="params">(String s1, String s2)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (s1.length() &gt; s2.length())&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span>[]nums1 = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">26</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s1.length(); i++) &#123;</span><br><span class="line">        nums1[s1.charAt(i) - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">        nums1[s2.charAt(i) - <span class="string">&#x27;a&#x27;</span>]--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="variable">L</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">R</span> <span class="operator">=</span> s1.length() - <span class="number">1</span>;</span><br><span class="line">    A:<span class="keyword">while</span> (R &lt; s2.length())&#123;</span><br><span class="line">        B:<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums1.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums1[i] &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                nums1[s2.charAt(L++) - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">                <span class="keyword">if</span> (R &lt; s2.length() - <span class="number">1</span>)&#123;</span><br><span class="line">                    nums1[s2.charAt(++R) - <span class="string">&#x27;a&#x27;</span>]--;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    ++R;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">continue</span> A;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>优化一下只要把nums1所有位置的数都不等于0就说明是子字符串</p>
-<h3 id="2、给定两个字符串-s-和-p，找到-s-中所有-p-的-变位词-的子串，返回这些子串的起始索引。不考虑答案输出的顺序。变位词-指字母相同，但排列不同的字符串。"><a href="#2、给定两个字符串-s-和-p，找到-s-中所有-p-的-变位词-的子串，返回这些子串的起始索引。不考虑答案输出的顺序。变位词-指字母相同，但排列不同的字符串。" class="headerlink" title="2、给定两个字符串 s 和 p，找到 s 中所有 p 的 变位词 的子串，返回这些子串的起始索引。不考虑答案输出的顺序。变位词 指字母相同，但排列不同的字符串。"></a>2、给定两个字符串 s 和 p，找到 s 中所有 p 的 变位词 的子串，返回这些子串的起始索引。不考虑答案输出的顺序。变位词 指字母相同，但排列不同的字符串。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">findAnagrams</span><span class="params">(String s, String p)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt; res = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">if</span> (s.length() &lt; p.length())&#123;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span>[]nums = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">26</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; p.length(); i++) &#123;</span><br><span class="line">        nums[p.charAt(i) - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">        nums[s.charAt(i) - <span class="string">&#x27;a&#x27;</span>]--;</span><br><span class="line">    &#125;</span><br><span class="line">    A:<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>,j = p.length() - <span class="number">1</span>; j &lt; s.length(); i++,j++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">0</span>; k &lt; nums.length; k++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[k] &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                nums[s.charAt(i) - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">                <span class="keyword">if</span> (j &lt; s.length() - <span class="number">1</span>)&#123;</span><br><span class="line">                    nums[s.charAt(j+<span class="number">1</span>) - <span class="string">&#x27;a&#x27;</span>]--;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">continue</span> A;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        nums[s.charAt(i) - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">        <span class="keyword">if</span> (j &lt; s.length() - <span class="number">1</span>)&#123;</span><br><span class="line">            nums[s.charAt(j+<span class="number">1</span>) - <span class="string">&#x27;a&#x27;</span>]--;</span><br><span class="line">        &#125;</span><br><span class="line">        res.add(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>滑动窗口</p>
-<h3 id="3、给定一个字符串-s-，请你找出其中不含有重复字符的-最长连续子字符串-的长度。"><a href="#3、给定一个字符串-s-，请你找出其中不含有重复字符的-最长连续子字符串-的长度。" class="headerlink" title="3、给定一个字符串 s ，请你找出其中不含有重复字符的 **最长连续子字符串 **的长度。"></a>3、给定一个字符串 <code>s</code> ，请你找出其中不含有重复字符的 **最长连续子字符串 **的长度。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">lengthOfLongestSubstring</span><span class="params">(String s)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    Set&lt;Character&gt; set = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;Character&gt;();</span><br><span class="line">    <span class="type">int</span> <span class="variable">L</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">R</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (R &lt; s.length())&#123;</span><br><span class="line">        <span class="keyword">if</span> (!set.contains(s.charAt(R)))&#123;</span><br><span class="line">            set.add(s.charAt(R));</span><br><span class="line">            max = Math.max(max,R - L + <span class="number">1</span>);</span><br><span class="line">            R++;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            set.remove(s.charAt(L));</span><br><span class="line">            L++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>滑动窗口，用set存值，或者用hash表存坐标</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/12/leetCodeDay4%E6%95%B0%E7%BB%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="Just TC">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Just Do It Later">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/12/leetCodeDay4%E6%95%B0%E7%BB%84/" class="post-title-link" itemprop="url">leetCodeDay4数组</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-06-12 12:23:42 / 修改时间：18:56:39" itemprop="dateCreated datePublished" datetime="2022-06-12T12:23:42+08:00">2022-06-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1、给定一个整数数组和一个整数-k-，请找到该数组中和为-k-的连续子数组的个数。"><a href="#1、给定一个整数数组和一个整数-k-，请找到该数组中和为-k-的连续子数组的个数。" class="headerlink" title="1、给定一个整数数组和一个整数 k ，请找到该数组中和为 k 的连续子数组的个数。"></a>1、给定一个整数数组和一个整数 k ，<strong>请找到该数组中和为 <code>k</code></strong> 的连续子数组的个数。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">subarraySum</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>, pre = <span class="number">0</span>;</span><br><span class="line">    HashMap &lt; Integer, Integer &gt; mp = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt; &gt;();</span><br><span class="line">    mp.put(<span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        pre += nums[i];</span><br><span class="line">        <span class="keyword">if</span> (mp.containsKey(pre - k)) &#123;</span><br><span class="line">            count += mp.get(pre - k);</span><br><span class="line">        &#125;</span><br><span class="line">        mp.put(pre, mp.getOrDefault(pre, <span class="number">0</span>) + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用hash表来保存累加数值，key为数，value为出现的次数</p>
-<p>从j - i 数组为k的公式为，pre[i] - pre[j - 1] == k，转换之后为pre[j - 1] = pre[i] - k</p>
-<p>因此只要统计hash表中value为pre[i] - k 的value，就是需要的子数组。</p>
-<h3 id="2、给定一个二进制数组-nums-找到含有相同数量的-0-和-1-的最长连续子数组，并返回该子数组的长度。"><a href="#2、给定一个二进制数组-nums-找到含有相同数量的-0-和-1-的最长连续子数组，并返回该子数组的长度。" class="headerlink" title="2、给定一个二进制数组 nums , 找到含有相同数量的 0 和 1 的最长连续子数组，并返回该子数组的长度。"></a>2、给定一个二进制数组 <code>nums</code> , 找到含有相同数量的 <code>0</code> 和 <code>1</code> 的最长连续子数组，并返回该子数组的长度。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findMaxLength</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">maxSize</span> <span class="operator">=</span> <span class="number">0</span> , pre = <span class="number">0</span>;</span><br><span class="line">    HashMap&lt;Integer,Integer&gt;map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    map.put(<span class="number">0</span>,-<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> nums[i] == <span class="number">0</span> ? -<span class="number">1</span> : <span class="number">1</span>;</span><br><span class="line">        pre += num;</span><br><span class="line">        <span class="keyword">if</span> (map.containsKey(pre))&#123;</span><br><span class="line">            maxSize = Math.max(maxSize,i - map.get(pre));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            map.put(pre,i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxSize;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>将二进制中的0转换为-1进行前缀加，可以转换为前缀问题</p>
-<p>一共有两种情况，一是pre=0的时候，也就是全文加起来等于0的时候，这个时候，size等于i+1，因此我们将map中pre=0的时候，value值设为-1</p>
-<p>第二种情况是pre为其他值，例如 001100，0011001100这个时候pre等于-2，可以看出来00的时候，pre也等于-2，只有第一次出现pre=-2的时候，我们用map将其下标存起来，这个时候获得相加等于0的size就等于用i减掉map中保存的下标。</p>
-<p>pre为其他值的时候，只要将map中前缀同为这个值的长度减掉，剩下之和就必为0</p>
-<h3 id="3、给你一个整数数组-nums-，请计算数组的-中心下标-。数组-中心下标-是数组的一个下标，其左侧所有元素相加的和等于右侧所有元素相加的和。如果中心下标位于数组最左端，那么左侧数之和视为-0-，因为在下标的左侧不存在元素。这一点对于中心下标位于数组最右端同样适用。如果数组有多个中心下标，应该返回-最靠近左边-的那一个。如果数组不存在中心下标，返回-1"><a href="#3、给你一个整数数组-nums-，请计算数组的-中心下标-。数组-中心下标-是数组的一个下标，其左侧所有元素相加的和等于右侧所有元素相加的和。如果中心下标位于数组最左端，那么左侧数之和视为-0-，因为在下标的左侧不存在元素。这一点对于中心下标位于数组最右端同样适用。如果数组有多个中心下标，应该返回-最靠近左边-的那一个。如果数组不存在中心下标，返回-1" class="headerlink" title="3、给你一个整数数组 nums ，请计算数组的 中心下标 。数组 中心下标 是数组的一个下标，其左侧所有元素相加的和等于右侧所有元素相加的和。如果中心下标位于数组最左端，那么左侧数之和视为 0 ，因为在下标的左侧不存在元素。这一点对于中心下标位于数组最右端同样适用。如果数组有多个中心下标，应该返回 最靠近左边 的那一个。如果数组不存在中心下标，返回 -1"></a>3、给你一个整数数组 nums ，请计算数组的 中心下标 。数组 中心下标 是数组的一个下标，其左侧所有元素相加的和等于右侧所有元素相加的和。如果中心下标位于数组最左端，那么左侧数之和视为 0 ，因为在下标的左侧不存在元素。这一点对于中心下标位于数组最右端同样适用。如果数组有多个中心下标，应该返回 最靠近左边 的那一个。如果数组不存在中心下标，返回 -1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">pivotIndex</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">total</span> <span class="operator">=</span> Arrays.stream(nums).sum();</span><br><span class="line">    <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="number">2</span> * sum + nums[i] == total) &#123;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">        sum += nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">pivotIndex</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>,cur = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i:nums) sum += i;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;i &lt; nums.length;i++)&#123;</span><br><span class="line">        sum -= nums[i];</span><br><span class="line">        <span class="keyword">if</span>(cur == sum) <span class="keyword">return</span> i;</span><br><span class="line">        cur += nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>nums[i]左边的和 = sum ，右边的和 = total - sum - nums[i] 如果两边相等可以得到公式， 2 * num + nums[i] = total</p>
-<p>nums[i]左侧的和为可以通过累加获得，右侧的数可以通过累减获得</p>
-<h3 id="4、给定一个二维矩阵-matrix，以下类型的多个请求：计算其子矩形范围内元素的总和，该子矩阵的左上角为-row1-col1-，右下角为-row2-col2-。实现-NumMatrix-类：NumMatrix-int-matrix-给定整数矩阵-matrix-进行初始化int-sumRegion-int-row1-int-col1-int-row2-int-col2-返回左上角-row1-col1-、右下角-row2-col2-的子矩阵的元素总和。"><a href="#4、给定一个二维矩阵-matrix，以下类型的多个请求：计算其子矩形范围内元素的总和，该子矩阵的左上角为-row1-col1-，右下角为-row2-col2-。实现-NumMatrix-类：NumMatrix-int-matrix-给定整数矩阵-matrix-进行初始化int-sumRegion-int-row1-int-col1-int-row2-int-col2-返回左上角-row1-col1-、右下角-row2-col2-的子矩阵的元素总和。" class="headerlink" title="4、给定一个二维矩阵 matrix，以下类型的多个请求：计算其子矩形范围内元素的总和，该子矩阵的左上角为 (row1, col1) ，右下角为 (row2, col2) 。实现 NumMatrix 类：NumMatrix(int[][] matrix) 给定整数矩阵 matrix 进行初始化int sumRegion(int row1, int col1, int row2, int col2) 返回左上角 (row1, col1) 、右下角 (row2, col2) 的子矩阵的元素总和。"></a>4、给定一个二维矩阵 matrix，以下类型的多个请求：计算其子矩形范围内元素的总和，该子矩阵的左上角为 (row1, col1) ，右下角为 (row2, col2) 。实现 NumMatrix 类：NumMatrix(int[][] matrix) 给定整数矩阵 matrix 进行初始化int sumRegion(int row1, int col1, int row2, int col2) 返回左上角 (row1, col1) 、右下角 (row2, col2) 的子矩阵的元素总和。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NumMatrix</span> &#123;</span><br><span class="line">    <span class="type">int</span>[][] nums;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NumMatrix</span><span class="params">(<span class="type">int</span>[][] matrix)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> matrix.length;</span><br><span class="line">        <span class="keyword">if</span> ( m &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> matrix[<span class="number">0</span>].length;</span><br><span class="line">            nums = <span class="keyword">new</span> <span class="title class_">int</span>[m][n+<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                    nums[i][j+<span class="number">1</span>] = nums[i][j] + matrix[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">sumRegion</span><span class="params">(<span class="type">int</span> row1, <span class="type">int</span> col1, <span class="type">int</span> row2, <span class="type">int</span> col2)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> row1;i &lt;= row2;i++)&#123;</span><br><span class="line">            sum += nums[i][col2 + <span class="number">1</span>] - nums[i][col1];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>一维前缀树，nums存储的是当前数及之前的数累加和</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">NumMatrix</span> &#123;</span><br><span class="line">    <span class="type">int</span>[][] nums;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">NumMatrix</span><span class="params">(<span class="type">int</span>[][] matrix)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> matrix.length;</span><br><span class="line">        <span class="keyword">if</span> ( m &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> matrix[<span class="number">0</span>].length;</span><br><span class="line">            nums = <span class="keyword">new</span> <span class="title class_">int</span>[m+<span class="number">1</span>][n+<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                    nums[i+<span class="number">1</span>][j+<span class="number">1</span>] = nums[i][j+<span class="number">1</span>] + nums[i+<span class="number">1</span>][j] - nums[i][j] + matrix[i][j];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">sumRegion</span><span class="params">(<span class="type">int</span> row1, <span class="type">int</span> col1, <span class="type">int</span> row2, <span class="type">int</span> col2)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> nums[row2+<span class="number">1</span>][col2+<span class="number">1</span>] - nums[row1][col2 + <span class="number">1</span>] - nums[row2+<span class="number">1</span>][col1] +nums[row1][col1];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/../imags/%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E6%A0%911.png" alt="二维前缀树1"></p>
-<p>二维前缀树，如图所示，用大的部门的值减去两个差值区域，由于减了两次row1 col1 区域 所以要加回来</p>
-<p>初始化的时候也是以同种方式进行</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1058,20 +1028,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
