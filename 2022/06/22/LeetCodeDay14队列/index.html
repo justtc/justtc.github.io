@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1、给定一个整数数据流和一个窗口大小，根据该滑动窗口的大小，计算滑动窗口里所有数字的平均值。实现 MovingAverage 类：MovingAverage(int size) 用窗口大小 size 初始化对象。double next(int val) 成员函数 next 每次调用的时候都会往滑动窗口增加一个整数，请计算并返回数据流中最后 size 个值的移动平均值，即滑动窗口里所有数字的平均值。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCodeDay14队列">
+<meta property="og:url" content="http://example.com/2022/06/22/LeetCodeDay14%E9%98%9F%E5%88%97/index.html">
+<meta property="og:site_name" content="Just Do It Later">
+<meta property="og:description" content="1、给定一个整数数据流和一个窗口大小，根据该滑动窗口的大小，计算滑动窗口里所有数字的平均值。实现 MovingAverage 类：MovingAverage(int size) 用窗口大小 size 初始化对象。double next(int val) 成员函数 next 每次调用的时候都会往滑动窗口增加一个整数，请计算并返回数据流中最后 size 个值的移动平均值，即滑动窗口里所有数字的平均值。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-06-22T06:05:56.000Z">
+<meta property="article:modified_time" content="2022-06-22T07:34:49.069Z">
+<meta property="article:author" content="Just TC">
+<meta property="article:tag" content="队列">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/06/22/LeetCodeDay14%E9%98%9F%E5%88%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>LeetCodeDay14队列 | Just Do It Later</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Just Do It Later</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/22/LeetCodeDay14%E9%98%9F%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Just TC">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Just Do It Later">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCodeDay14队列
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-22 14:05:56 / 修改时间：15:34:49" itemprop="dateCreated datePublished" datetime="2022-06-22T14:05:56+08:00">2022-06-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="1、给定一个整数数据流和一个窗口大小，根据该滑动窗口的大小，计算滑动窗口里所有数字的平均值。实现-MovingAverage-类：MovingAverage-int-size-用窗口大小-size-初始化对象。double-next-int-val-成员函数-next-每次调用的时候都会往滑动窗口增加一个整数，请计算并返回数据流中最后-size-个值的移动平均值，即滑动窗口里所有数字的平均值。"><a href="#1、给定一个整数数据流和一个窗口大小，根据该滑动窗口的大小，计算滑动窗口里所有数字的平均值。实现-MovingAverage-类：MovingAverage-int-size-用窗口大小-size-初始化对象。double-next-int-val-成员函数-next-每次调用的时候都会往滑动窗口增加一个整数，请计算并返回数据流中最后-size-个值的移动平均值，即滑动窗口里所有数字的平均值。" class="headerlink" title="1、给定一个整数数据流和一个窗口大小，根据该滑动窗口的大小，计算滑动窗口里所有数字的平均值。实现 MovingAverage 类：MovingAverage(int size) 用窗口大小 size 初始化对象。double next(int val) 成员函数 next 每次调用的时候都会往滑动窗口增加一个整数，请计算并返回数据流中最后 size 个值的移动平均值，即滑动窗口里所有数字的平均值。"></a>1、给定一个整数数据流和一个窗口大小，根据该滑动窗口的大小，计算滑动窗口里所有数字的平均值。实现 MovingAverage 类：MovingAverage(int size) 用窗口大小 size 初始化对象。double next(int val) 成员函数 next 每次调用的时候都会往滑动窗口增加一个整数，请计算并返回数据流中最后 size 个值的移动平均值，即滑动窗口里所有数字的平均值。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MovingAverage</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> size;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> num;</span><br><span class="line">    Deque&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="comment">/** Initialize your data structure here. */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MovingAverage</span><span class="params">(<span class="type">int</span> size)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.size = size;</span><br><span class="line">        num = <span class="number">0.0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">next</span><span class="params">(<span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (list.size() &gt;= size)&#123;</span><br><span class="line">            num -=  list.pollLast();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        list.addFirst(val);</span><br><span class="line">        num += val;</span><br><span class="line">        <span class="type">return</span> <span class="variable">num</span> <span class="operator">=</span>= <span class="number">0</span> ? <span class="number">0.00</span> : num / list.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>没啥好说的。。。</p>
+<h3 id="2、写一个-RecentCounter-类来计算特定时间范围内最近的请求。请实现-RecentCounter-类：RecentCounter-初始化计数器，请求数为-0-。int-ping-int-t-在时间-t-添加一个新请求，其中-t-表示以毫秒为单位的某个时间，并返回过去-3000-毫秒内发生的所有请求数（包括新请求）。确切地说，返回在-t-3000-t-内发生的请求数。保证-每次对-ping-的调用都使用比之前更大的-t-值。"><a href="#2、写一个-RecentCounter-类来计算特定时间范围内最近的请求。请实现-RecentCounter-类：RecentCounter-初始化计数器，请求数为-0-。int-ping-int-t-在时间-t-添加一个新请求，其中-t-表示以毫秒为单位的某个时间，并返回过去-3000-毫秒内发生的所有请求数（包括新请求）。确切地说，返回在-t-3000-t-内发生的请求数。保证-每次对-ping-的调用都使用比之前更大的-t-值。" class="headerlink" title="2、写一个 RecentCounter 类来计算特定时间范围内最近的请求。请实现 RecentCounter 类：RecentCounter() 初始化计数器，请求数为 0 。int ping(int t) 在时间 t 添加一个新请求，其中 t 表示以毫秒为单位的某个时间，并返回过去 3000 毫秒内发生的所有请求数（包括新请求）。确切地说，返回在 [t-3000, t] 内发生的请求数。保证 每次对 ping 的调用都使用比之前更大的 t 值。"></a>2、写一个 RecentCounter 类来计算特定时间范围内最近的请求。请实现 RecentCounter 类：RecentCounter() 初始化计数器，请求数为 0 。int ping(int t) 在时间 t 添加一个新请求，其中 t 表示以毫秒为单位的某个时间，并返回过去 3000 毫秒内发生的所有请求数（包括新请求）。确切地说，返回在 [t-3000, t] 内发生的请求数。保证 每次对 ping 的调用都使用比之前更大的 t 值。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">RecentCounter</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Deque&lt;Integer&gt;list;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">RecentCounter</span><span class="params">()</span> &#123;</span><br><span class="line">        list = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">ping</span><span class="params">(<span class="type">int</span> t)</span> &#123;</span><br><span class="line">        list.addFirst(t);</span><br><span class="line">        <span class="keyword">while</span> (list.peekLast() &lt; t - <span class="number">3000</span>)&#123;</span><br><span class="line">            list.pollLast();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、完全二叉树是每一层（除最后一层外）都是完全填充（即，节点数达到最大，第-n-层有-2n-1-个节点）的，并且所有的节点都尽可能地集中在左侧。设计一个用完全二叉树初始化的数据结构-CBTInserter，它支持以下几种操作：CBTInserter-TreeNode-root-使用根节点为-root-的给定树初始化该数据结构；CBTInserter-insert-int-v-向树中插入一个新节点，节点类型为-TreeNode，值为-v-。使树保持完全二叉树的状态，并返回插入的新节点的父节点的值；CBTInserter-get-root-将返回树的根节点。"><a href="#3、完全二叉树是每一层（除最后一层外）都是完全填充（即，节点数达到最大，第-n-层有-2n-1-个节点）的，并且所有的节点都尽可能地集中在左侧。设计一个用完全二叉树初始化的数据结构-CBTInserter，它支持以下几种操作：CBTInserter-TreeNode-root-使用根节点为-root-的给定树初始化该数据结构；CBTInserter-insert-int-v-向树中插入一个新节点，节点类型为-TreeNode，值为-v-。使树保持完全二叉树的状态，并返回插入的新节点的父节点的值；CBTInserter-get-root-将返回树的根节点。" class="headerlink" title="3、完全二叉树是每一层（除最后一层外）都是完全填充（即，节点数达到最大，第 n 层有 2n-1 个节点）的，并且所有的节点都尽可能地集中在左侧。设计一个用完全二叉树初始化的数据结构 CBTInserter，它支持以下几种操作：CBTInserter(TreeNode root) 使用根节点为 root 的给定树初始化该数据结构；CBTInserter.insert(int v)  向树中插入一个新节点，节点类型为 TreeNode，值为 v 。使树保持完全二叉树的状态，并返回插入的新节点的父节点的值；CBTInserter.get_root() 将返回树的根节点。"></a>3、完全二叉树是每一层（除最后一层外）都是完全填充（即，节点数达到最大，第 n 层有 2n-1 个节点）的，并且所有的节点都尽可能地集中在左侧。设计一个用完全二叉树初始化的数据结构 CBTInserter，它支持以下几种操作：CBTInserter(TreeNode root) 使用根节点为 root 的给定树初始化该数据结构；CBTInserter.insert(int v)  向树中插入一个新节点，节点类型为 TreeNode，值为 v 。使树保持完全二叉树的状态，并返回插入的新节点的父节点的值；CBTInserter.get_root() 将返回树的根节点。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CBTInserter</span> &#123;</span><br><span class="line">    TreeNode root;</span><br><span class="line">    Deque&lt;TreeNode&gt;deque = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CBTInserter</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.root = root;</span><br><span class="line">        Deque&lt;TreeNode&gt;deque = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">        deque.addFirst(root);</span><br><span class="line">        <span class="keyword">while</span> (!deque.isEmpty())&#123;</span><br><span class="line">            <span class="type">TreeNode</span> <span class="variable">pollNode</span> <span class="operator">=</span> deque.pollLast();</span><br><span class="line">            <span class="keyword">if</span> (pollNode.left == <span class="literal">null</span> || pollNode.right == <span class="literal">null</span>)&#123;</span><br><span class="line">                <span class="built_in">this</span>.deque.addFirst(pollNode);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (pollNode.left != <span class="literal">null</span>)&#123;</span><br><span class="line">                deque.addFirst(pollNode.left);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (pollNode.right != <span class="literal">null</span>)&#123;</span><br><span class="line">                deque.addFirst(pollNode.right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">insert</span><span class="params">(<span class="type">int</span> v)</span> &#123;</span><br><span class="line">        <span class="type">TreeNode</span> <span class="variable">newNode</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TreeNode</span>(v);</span><br><span class="line">        deque.addFirst(newNode);</span><br><span class="line">        <span class="type">TreeNode</span> <span class="variable">lastNode</span> <span class="operator">=</span> deque.peekLast();</span><br><span class="line">        <span class="keyword">if</span> (lastNode.left == <span class="literal">null</span>)&#123;</span><br><span class="line">            lastNode.left = newNode;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            lastNode.right = newNode;</span><br><span class="line">            deque.pollLast();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lastNode.val;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> TreeNode <span class="title function_">get_root</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>宽度优先遍历，保存左右节点不全的节点</p>
+<p>insert的时候先看deque队尾的节点左子节点是否有节点，没有则将insert的节点挂在这里，有的话将insert的节点挂在右子节点，并将次节点拿出队列</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%98%9F%E5%88%97/" rel="tag"># 队列</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/21/LeetCodeDay13%E6%A0%88/" rel="prev" title="LeetCode13栈">
+      <i class="fa fa-chevron-left"></i> LeetCode13栈
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E7%BB%99%E5%AE%9A%E4%B8%80%E4%B8%AA%E6%95%B4%E6%95%B0%E6%95%B0%E6%8D%AE%E6%B5%81%E5%92%8C%E4%B8%80%E4%B8%AA%E7%AA%97%E5%8F%A3%E5%A4%A7%E5%B0%8F%EF%BC%8C%E6%A0%B9%E6%8D%AE%E8%AF%A5%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9A%84%E5%A4%A7%E5%B0%8F%EF%BC%8C%E8%AE%A1%E7%AE%97%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E9%87%8C%E6%89%80%E6%9C%89%E6%95%B0%E5%AD%97%E7%9A%84%E5%B9%B3%E5%9D%87%E5%80%BC%E3%80%82%E5%AE%9E%E7%8E%B0-MovingAverage-%E7%B1%BB%EF%BC%9AMovingAverage-int-size-%E7%94%A8%E7%AA%97%E5%8F%A3%E5%A4%A7%E5%B0%8F-size-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%AF%B9%E8%B1%A1%E3%80%82double-next-int-val-%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-next-%E6%AF%8F%E6%AC%A1%E8%B0%83%E7%94%A8%E7%9A%84%E6%97%B6%E5%80%99%E9%83%BD%E4%BC%9A%E5%BE%80%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E5%A2%9E%E5%8A%A0%E4%B8%80%E4%B8%AA%E6%95%B4%E6%95%B0%EF%BC%8C%E8%AF%B7%E8%AE%A1%E7%AE%97%E5%B9%B6%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%AD%E6%9C%80%E5%90%8E-size-%E4%B8%AA%E5%80%BC%E7%9A%84%E7%A7%BB%E5%8A%A8%E5%B9%B3%E5%9D%87%E5%80%BC%EF%BC%8C%E5%8D%B3%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E9%87%8C%E6%89%80%E6%9C%89%E6%95%B0%E5%AD%97%E7%9A%84%E5%B9%B3%E5%9D%87%E5%80%BC%E3%80%82"><span class="nav-number">1.</span> <span class="nav-text">1、给定一个整数数据流和一个窗口大小，根据该滑动窗口的大小，计算滑动窗口里所有数字的平均值。实现 MovingAverage 类：MovingAverage(int size) 用窗口大小 size 初始化对象。double next(int val) 成员函数 next 每次调用的时候都会往滑动窗口增加一个整数，请计算并返回数据流中最后 size 个值的移动平均值，即滑动窗口里所有数字的平均值。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%86%99%E4%B8%80%E4%B8%AA-RecentCounter-%E7%B1%BB%E6%9D%A5%E8%AE%A1%E7%AE%97%E7%89%B9%E5%AE%9A%E6%97%B6%E9%97%B4%E8%8C%83%E5%9B%B4%E5%86%85%E6%9C%80%E8%BF%91%E7%9A%84%E8%AF%B7%E6%B1%82%E3%80%82%E8%AF%B7%E5%AE%9E%E7%8E%B0-RecentCounter-%E7%B1%BB%EF%BC%9ARecentCounter-%E5%88%9D%E5%A7%8B%E5%8C%96%E8%AE%A1%E6%95%B0%E5%99%A8%EF%BC%8C%E8%AF%B7%E6%B1%82%E6%95%B0%E4%B8%BA-0-%E3%80%82int-ping-int-t-%E5%9C%A8%E6%97%B6%E9%97%B4-t-%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA%E6%96%B0%E8%AF%B7%E6%B1%82%EF%BC%8C%E5%85%B6%E4%B8%AD-t-%E8%A1%A8%E7%A4%BA%E4%BB%A5%E6%AF%AB%E7%A7%92%E4%B8%BA%E5%8D%95%E4%BD%8D%E7%9A%84%E6%9F%90%E4%B8%AA%E6%97%B6%E9%97%B4%EF%BC%8C%E5%B9%B6%E8%BF%94%E5%9B%9E%E8%BF%87%E5%8E%BB-3000-%E6%AF%AB%E7%A7%92%E5%86%85%E5%8F%91%E7%94%9F%E7%9A%84%E6%89%80%E6%9C%89%E8%AF%B7%E6%B1%82%E6%95%B0%EF%BC%88%E5%8C%85%E6%8B%AC%E6%96%B0%E8%AF%B7%E6%B1%82%EF%BC%89%E3%80%82%E7%A1%AE%E5%88%87%E5%9C%B0%E8%AF%B4%EF%BC%8C%E8%BF%94%E5%9B%9E%E5%9C%A8-t-3000-t-%E5%86%85%E5%8F%91%E7%94%9F%E7%9A%84%E8%AF%B7%E6%B1%82%E6%95%B0%E3%80%82%E4%BF%9D%E8%AF%81-%E6%AF%8F%E6%AC%A1%E5%AF%B9-ping-%E7%9A%84%E8%B0%83%E7%94%A8%E9%83%BD%E4%BD%BF%E7%94%A8%E6%AF%94%E4%B9%8B%E5%89%8D%E6%9B%B4%E5%A4%A7%E7%9A%84-t-%E5%80%BC%E3%80%82"><span class="nav-number">2.</span> <span class="nav-text">2、写一个 RecentCounter 类来计算特定时间范围内最近的请求。请实现 RecentCounter 类：RecentCounter() 初始化计数器，请求数为 0 。int ping(int t) 在时间 t 添加一个新请求，其中 t 表示以毫秒为单位的某个时间，并返回过去 3000 毫秒内发生的所有请求数（包括新请求）。确切地说，返回在 [t-3000, t] 内发生的请求数。保证 每次对 ping 的调用都使用比之前更大的 t 值。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E6%98%AF%E6%AF%8F%E4%B8%80%E5%B1%82%EF%BC%88%E9%99%A4%E6%9C%80%E5%90%8E%E4%B8%80%E5%B1%82%E5%A4%96%EF%BC%89%E9%83%BD%E6%98%AF%E5%AE%8C%E5%85%A8%E5%A1%AB%E5%85%85%EF%BC%88%E5%8D%B3%EF%BC%8C%E8%8A%82%E7%82%B9%E6%95%B0%E8%BE%BE%E5%88%B0%E6%9C%80%E5%A4%A7%EF%BC%8C%E7%AC%AC-n-%E5%B1%82%E6%9C%89-2n-1-%E4%B8%AA%E8%8A%82%E7%82%B9%EF%BC%89%E7%9A%84%EF%BC%8C%E5%B9%B6%E4%B8%94%E6%89%80%E6%9C%89%E7%9A%84%E8%8A%82%E7%82%B9%E9%83%BD%E5%B0%BD%E5%8F%AF%E8%83%BD%E5%9C%B0%E9%9B%86%E4%B8%AD%E5%9C%A8%E5%B7%A6%E4%BE%A7%E3%80%82%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%94%A8%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E5%88%9D%E5%A7%8B%E5%8C%96%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-CBTInserter%EF%BC%8C%E5%AE%83%E6%94%AF%E6%8C%81%E4%BB%A5%E4%B8%8B%E5%87%A0%E7%A7%8D%E6%93%8D%E4%BD%9C%EF%BC%9ACBTInserter-TreeNode-root-%E4%BD%BF%E7%94%A8%E6%A0%B9%E8%8A%82%E7%82%B9%E4%B8%BA-root-%E7%9A%84%E7%BB%99%E5%AE%9A%E6%A0%91%E5%88%9D%E5%A7%8B%E5%8C%96%E8%AF%A5%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9BCBTInserter-insert-int-v-%E5%90%91%E6%A0%91%E4%B8%AD%E6%8F%92%E5%85%A5%E4%B8%80%E4%B8%AA%E6%96%B0%E8%8A%82%E7%82%B9%EF%BC%8C%E8%8A%82%E7%82%B9%E7%B1%BB%E5%9E%8B%E4%B8%BA-TreeNode%EF%BC%8C%E5%80%BC%E4%B8%BA-v-%E3%80%82%E4%BD%BF%E6%A0%91%E4%BF%9D%E6%8C%81%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%8A%B6%E6%80%81%EF%BC%8C%E5%B9%B6%E8%BF%94%E5%9B%9E%E6%8F%92%E5%85%A5%E7%9A%84%E6%96%B0%E8%8A%82%E7%82%B9%E7%9A%84%E7%88%B6%E8%8A%82%E7%82%B9%E7%9A%84%E5%80%BC%EF%BC%9BCBTInserter-get-root-%E5%B0%86%E8%BF%94%E5%9B%9E%E6%A0%91%E7%9A%84%E6%A0%B9%E8%8A%82%E7%82%B9%E3%80%82"><span class="nav-number">3.</span> <span class="nav-text">3、完全二叉树是每一层（除最后一层外）都是完全填充（即，节点数达到最大，第 n 层有 2n-1 个节点）的，并且所有的节点都尽可能地集中在左侧。设计一个用完全二叉树初始化的数据结构 CBTInserter，它支持以下几种操作：CBTInserter(TreeNode root) 使用根节点为 root 的给定树初始化该数据结构；CBTInserter.insert(int v)  向树中插入一个新节点，节点类型为 TreeNode，值为 v 。使树保持完全二叉树的状态，并返回插入的新节点的父节点的值；CBTInserter.get_root() 将返回树的根节点。</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Just TC"
+      src="/images/%E5%A4%B4%E5%83%8F.jpg">
+  <p class="site-author-name" itemprop="name">Just TC</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Just TC</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
