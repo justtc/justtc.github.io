@@ -155,7 +155,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/14/LeetCodeDay6%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/19/%E5%89%91%E6%8C%87LeetCodeDay11%E5%93%88%E5%B8%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
@@ -169,7 +169,504 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/06/14/LeetCodeDay6%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-title-link" itemprop="url">LeetcodeDay6字符串</a>
+            <a href="/2022/06/19/%E5%89%91%E6%8C%87LeetCodeDay11%E5%93%88%E5%B8%8C/" class="post-title-link" itemprop="url">LeetCodeDay11哈希</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-19 12:08:14 / 修改时间：22:47:19" itemprop="dateCreated datePublished" datetime="2022-06-19T12:08:14+08:00">2022-06-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1、给定一个字符串数组-strs-，将-变位词-组合在一起。-可以按任意顺序返回结果列表。注意：若两个字符串中每个字符出现的次数都相同，则称它们互为变位词。"><a href="#1、给定一个字符串数组-strs-，将-变位词-组合在一起。-可以按任意顺序返回结果列表。注意：若两个字符串中每个字符出现的次数都相同，则称它们互为变位词。" class="headerlink" title="1、给定一个字符串数组 strs ，将 **变位词 **组合在一起。 可以按任意顺序返回结果列表。注意：若两个字符串中每个字符出现的次数都相同，则称它们互为变位词。"></a>1、给定一个字符串数组 <code>strs</code> ，将 **变位词 **组合在一起。 可以按任意顺序返回结果列表。注意：若两个字符串中每个字符出现的次数都相同，则称它们互为变位词。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;List&lt;String&gt;&gt; <span class="title function_">groupAnagrams</span><span class="params">(String[] strs)</span> &#123;</span><br><span class="line">    HashMap&lt;String,List&lt;String&gt;&gt;map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; strs.length; i++) &#123;</span><br><span class="line">        <span class="type">char</span>[] chars = strs[i].toCharArray();</span><br><span class="line">        Arrays.sort(chars);</span><br><span class="line">        <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> String.valueOf(chars);</span><br><span class="line">        <span class="keyword">if</span> (map.containsKey(s))&#123;</span><br><span class="line">            List&lt;String&gt; strings = map.get(s);</span><br><span class="line">            strings.add(strs[i]);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">            list.add(strs[i]);</span><br><span class="line">            map.put(s,list);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(map.values());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、给定一个-24-小时制（小时-分钟-”HH-MM”-）的时间列表，找出列表中任意两个时间的最小时间差并以分钟数表示。"><a href="#2、给定一个-24-小时制（小时-分钟-”HH-MM”-）的时间列表，找出列表中任意两个时间的最小时间差并以分钟数表示。" class="headerlink" title="2、给定一个 24 小时制（小时:分钟 **”HH:MM”**）的时间列表，找出列表中任意两个时间的最小时间差并以分钟数表示。"></a>2、给定一个 24 小时制（小时:分钟 **”HH:MM”**）的时间列表，找出列表中任意两个时间的最小时间差并以分钟数表示。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findMinDifference</span><span class="params">(List&lt;String&gt; timePoints)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (timePoints.size() &gt; <span class="number">1440</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Collections.sort(timePoints);</span><br><span class="line">    <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> Integer.MAX_VALUE;</span><br><span class="line">    <span class="type">int</span> <span class="variable">preMinutes</span> <span class="operator">=</span> getMinutes(timePoints.get(<span class="number">0</span>));</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; timePoints.size(); i++) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">minutes</span> <span class="operator">=</span> getMinutes(timePoints.get(i));</span><br><span class="line">        res = Math.min(res,minutes - preMinutes);</span><br><span class="line">        preMinutes = minutes;</span><br><span class="line">    &#125;</span><br><span class="line">    res = Math.min(res,getMinutes(timePoints.get(<span class="number">0</span>)) + <span class="number">1440</span> - preMinutes);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">getMinutes</span><span class="params">(String string)</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">shiMin</span> <span class="operator">=</span> (string.charAt(<span class="number">0</span>) - <span class="string">&#x27;0&#x27;</span>) * <span class="number">60</span> * <span class="number">10</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">geMin</span> <span class="operator">=</span> (string.charAt(<span class="number">1</span>) - <span class="string">&#x27;0&#x27;</span>) * <span class="number">60</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">shiMins</span> <span class="operator">=</span> (string.charAt(<span class="number">3</span>) - <span class="string">&#x27;0&#x27;</span>) * <span class="number">10</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">geMins</span> <span class="operator">=</span> string.charAt(<span class="number">4</span>) - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">    <span class="keyword">return</span> shiMin + geMin + shiMins +geMins;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>字符串的数字可以排序</p>
+<h3 id="3、某种外星语也使用英文小写字母，但可能顺序-order-不同。字母表的顺序（order）是一些小写字母的排列。给定一组用外星语书写的单词-words，以及其字母表的顺序-order，只有当给定的单词在这种外星语中按字典序排列时，返回-true；否则，返回-false。"><a href="#3、某种外星语也使用英文小写字母，但可能顺序-order-不同。字母表的顺序（order）是一些小写字母的排列。给定一组用外星语书写的单词-words，以及其字母表的顺序-order，只有当给定的单词在这种外星语中按字典序排列时，返回-true；否则，返回-false。" class="headerlink" title="3、某种外星语也使用英文小写字母，但可能顺序 order 不同。字母表的顺序（order）是一些小写字母的排列。给定一组用外星语书写的单词 words，以及其字母表的顺序 order，只有当给定的单词在这种外星语中按字典序排列时，返回 true；否则，返回 false。"></a>3、某种外星语也使用英文小写字母，但可能顺序 order 不同。字母表的顺序（order）是一些小写字母的排列。给定一组用外星语书写的单词 words，以及其字母表的顺序 order，只有当给定的单词在这种外星语中按字典序排列时，返回 true；否则，返回 false。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isAlienSorted</span><span class="params">(String[] words, String order)</span> &#123;</span><br><span class="line">    <span class="type">int</span>[]wordOrder = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">26</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; order.length(); i++) &#123;</span><br><span class="line">        wordOrder[order.charAt(i) - <span class="string">&#x27;a&#x27;</span>] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; words.length; i++) &#123;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">valid</span> <span class="operator">=</span> <span class="literal">false</span>;<span class="comment">//前面所有字母相等则看字符串长度</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; words[i].length() &amp;&amp; j &lt; words[i - <span class="number">1</span>].length(); j++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">pre</span> <span class="operator">=</span> wordOrder[words[i - <span class="number">1</span>].charAt(j) - <span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">            <span class="type">int</span> <span class="variable">cur</span> <span class="operator">=</span> wordOrder[words[i].charAt(j) - <span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">            <span class="keyword">if</span> (pre &lt; cur)&#123;</span><br><span class="line">                valid = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pre &gt; cur)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!valid)&#123;</span><br><span class="line">            <span class="keyword">if</span> (words[i - <span class="number">1</span>].length() &gt; words[i].length())&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只有26个字母可以用int[]数组保存次序，然后根据顺序进行对比</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/18/%E5%89%91%E6%8C%87LeetCodeDay10%E5%93%88%E5%B8%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Just TC">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Just Do It Later">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/18/%E5%89%91%E6%8C%87LeetCodeDay10%E5%93%88%E5%B8%8C/" class="post-title-link" itemprop="url">LeetCode</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-06-18 11:02:17" itemprop="dateCreated datePublished" datetime="2022-06-18T11:02:17+08:00">2022-06-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-19 12:30:33" itemprop="dateModified" datetime="2022-06-19T12:30:33+08:00">2022-06-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1、设计一个支持在平均-时间复杂度-O-1-下，执行以下操作的数据结构：insert-val-：当元素-val-不存在时返回-true-，并向集合中插入该项，否则返回-false-。remove-val-：当元素-val-存在时返回-true-，并从集合中移除该项，否则返回-false-。getRandom：随机返回现有集合中的一项。每个元素应该有-相同的概率-被返回。"><a href="#1、设计一个支持在平均-时间复杂度-O-1-下，执行以下操作的数据结构：insert-val-：当元素-val-不存在时返回-true-，并向集合中插入该项，否则返回-false-。remove-val-：当元素-val-存在时返回-true-，并从集合中移除该项，否则返回-false-。getRandom：随机返回现有集合中的一项。每个元素应该有-相同的概率-被返回。" class="headerlink" title="1、设计一个支持在平均 时间复杂度 O(1) 下，执行以下操作的数据结构：insert(val)：当元素 val 不存在时返回 true ，并向集合中插入该项，否则返回 false 。remove(val)：当元素 val 存在时返回 true ，并从集合中移除该项，否则返回 false 。getRandom：随机返回现有集合中的一项。每个元素应该有 相同的概率 被返回。"></a>1、设计一个支持在平均 时间复杂度 O(1) 下，执行以下操作的数据结构：insert(val)：当元素 val 不存在时返回 true ，并向集合中插入该项，否则返回 false 。remove(val)：当元素 val 存在时返回 true ，并从集合中移除该项，否则返回 false 。getRandom：随机返回现有集合中的一项。每个元素应该有 相同的概率 被返回。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">RandomizedSet</span> &#123;</span><br><span class="line">    HashMap&lt;Integer,Integer&gt;map;</span><br><span class="line">    List&lt;Integer&gt;nums;</span><br><span class="line">    Random random;</span><br><span class="line">    <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">/** Initialize your data structure here. */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">RandomizedSet</span><span class="params">()</span> &#123;</span><br><span class="line">        map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        nums = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        random = <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Inserts a value to the set. Returns true if the set did not already contain the specified element. */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">insert</span><span class="params">(<span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!map.containsKey(val))&#123;</span><br><span class="line">            map.put(val,size);</span><br><span class="line">            <span class="keyword">if</span>(nums.size() &gt; size) nums.set(size, val); </span><br><span class="line">            <span class="keyword">else</span> nums.add(val);</span><br><span class="line">            size++;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Removes a value from the set. Returns true if the set contained the specified element. */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">remove</span><span class="params">(<span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (map.containsKey(val))&#123;</span><br><span class="line">            <span class="type">Integer</span> <span class="variable">index</span> <span class="operator">=</span> map.get(val);</span><br><span class="line">            <span class="type">Integer</span> <span class="variable">lastVal</span> <span class="operator">=</span> nums.get(size - <span class="number">1</span>);</span><br><span class="line">            nums.set(index,lastVal);</span><br><span class="line">            map.put(lastVal,index);</span><br><span class="line">            map.remove(val);</span><br><span class="line">            size--;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Get a random element from the set. */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getRandom</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> nums.get(random.nextInt(size));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用惰性删除效率更好，如果担心数据过于冗余，可以在insert的时候判断一下当size大于多少的时候，刷下一下数组</p>
+<h3 id="2、运用所掌握的数据结构，设计和实现一个-LRU-Least-Recently-Used，最近最少使用-缓存机制-。实现-LRUCache-类：LRUCache-int-capacity-以正整数作为容量-capacity-初始化-LRU-缓存int-get-int-key-如果关键字-key-存在于缓存中，则返回关键字的值，否则返回-1-。void-put-int-key-int-value-如果关键字已经存在，则变更其数据值；如果关键字不存在，则插入该组「关键字-值」。当缓存容量达到上限时，它应该在写入新数据之前删除最久未使用的数据值，从而为新的数据值留出空间。"><a href="#2、运用所掌握的数据结构，设计和实现一个-LRU-Least-Recently-Used，最近最少使用-缓存机制-。实现-LRUCache-类：LRUCache-int-capacity-以正整数作为容量-capacity-初始化-LRU-缓存int-get-int-key-如果关键字-key-存在于缓存中，则返回关键字的值，否则返回-1-。void-put-int-key-int-value-如果关键字已经存在，则变更其数据值；如果关键字不存在，则插入该组「关键字-值」。当缓存容量达到上限时，它应该在写入新数据之前删除最久未使用的数据值，从而为新的数据值留出空间。" class="headerlink" title="2、运用所掌握的数据结构，设计和实现一个  LRU (Least Recently Used，最近最少使用) 缓存机制 。实现 LRUCache 类：LRUCache(int capacity) 以正整数作为容量 capacity 初始化 LRU 缓存int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。void put(int key, int value) 如果关键字已经存在，则变更其数据值；如果关键字不存在，则插入该组「关键字-值」。当缓存容量达到上限时，它应该在写入新数据之前删除最久未使用的数据值，从而为新的数据值留出空间。"></a>2、运用所掌握的数据结构，设计和实现一个  LRU (Least Recently Used，最近最少使用) 缓存机制 。实现 LRUCache 类：LRUCache(int capacity) 以正整数作为容量 capacity 初始化 LRU 缓存int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。void put(int key, int value) 如果关键字已经存在，则变更其数据值；如果关键字不存在，则插入该组「关键字-值」。当缓存容量达到上限时，它应该在写入新数据之前删除最久未使用的数据值，从而为新的数据值留出空间。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LRUCache</span> &#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">DLinkedNode</span> &#123;</span><br><span class="line">        <span class="type">int</span> key;</span><br><span class="line">        <span class="type">int</span> value;</span><br><span class="line">        DLinkedNode prev;</span><br><span class="line">        DLinkedNode next;</span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">DLinkedNode</span><span class="params">()</span> &#123;&#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="title function_">DLinkedNode</span><span class="params">(<span class="type">int</span> _key, <span class="type">int</span> _value)</span> &#123;key = _key; value = _value;&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Map&lt;Integer, DLinkedNode&gt; cache = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;Integer, DLinkedNode&gt;();</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> size;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> capacity;</span><br><span class="line">    <span class="keyword">private</span> DLinkedNode head, tail;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LRUCache</span><span class="params">(<span class="type">int</span> capacity)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.size = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">this</span>.capacity = capacity;</span><br><span class="line">        <span class="comment">// 使用伪头部和伪尾部节点</span></span><br><span class="line">        head = <span class="keyword">new</span> <span class="title class_">DLinkedNode</span>();</span><br><span class="line">        tail = <span class="keyword">new</span> <span class="title class_">DLinkedNode</span>();</span><br><span class="line">        head.next = tail;</span><br><span class="line">        tail.prev = head;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">get</span><span class="params">(<span class="type">int</span> key)</span> &#123;</span><br><span class="line">        <span class="type">DLinkedNode</span> <span class="variable">node</span> <span class="operator">=</span> cache.get(key);</span><br><span class="line">        <span class="keyword">if</span> (node == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果 key 存在，先通过哈希表定位，再移到头部</span></span><br><span class="line">        moveToHead(node);</span><br><span class="line">        <span class="keyword">return</span> node.value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">put</span><span class="params">(<span class="type">int</span> key, <span class="type">int</span> value)</span> &#123;</span><br><span class="line">        <span class="type">DLinkedNode</span> <span class="variable">node</span> <span class="operator">=</span> cache.get(key);</span><br><span class="line">        <span class="keyword">if</span> (node == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 如果 key 不存在，创建一个新的节点</span></span><br><span class="line">            <span class="type">DLinkedNode</span> <span class="variable">newNode</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DLinkedNode</span>(key, value);</span><br><span class="line">            <span class="comment">// 添加进哈希表</span></span><br><span class="line">            cache.put(key, newNode);</span><br><span class="line">            <span class="comment">// 添加至双向链表的头部</span></span><br><span class="line">            addToHead(newNode);</span><br><span class="line">            ++size;</span><br><span class="line">            <span class="keyword">if</span> (size &gt; capacity) &#123;</span><br><span class="line">                <span class="comment">// 如果超出容量，删除双向链表的尾部节点</span></span><br><span class="line">                <span class="type">DLinkedNode</span> <span class="variable">tail</span> <span class="operator">=</span> removeTail();</span><br><span class="line">                <span class="comment">// 删除哈希表中对应的项</span></span><br><span class="line">                cache.remove(tail.key);</span><br><span class="line">                --size;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 如果 key 存在，先通过哈希表定位，再修改 value，并移到头部</span></span><br><span class="line">            node.value = value;</span><br><span class="line">            moveToHead(node);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">addToHead</span><span class="params">(DLinkedNode node)</span> &#123;</span><br><span class="line">        node.prev = head;</span><br><span class="line">        node.next = head.next;</span><br><span class="line">        head.next.prev = node;</span><br><span class="line">        head.next = node;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">removeNode</span><span class="params">(DLinkedNode node)</span> &#123;</span><br><span class="line">        node.prev.next = node.next;</span><br><span class="line">        node.next.prev = node.prev;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">moveToHead</span><span class="params">(DLinkedNode node)</span> &#123;</span><br><span class="line">        removeNode(node);</span><br><span class="line">        addToHead(node);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> DLinkedNode <span class="title function_">removeTail</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">DLinkedNode</span> <span class="variable">res</span> <span class="operator">=</span> tail.prev;</span><br><span class="line">        removeNode(res);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用自己做一个能保存key和value的双向链表，用hashmap来保存节点，节点头尾用一个虚拟节点避免过多的校验</p>
+<h3 id="3、给定两个字符串-s-和-t-，编写一个函数来判断它们是不是一组变位词（字母异位词）。注意：若-s-和-t-中每个字符出现的次数都相同且字符顺序不完全相同，则称-s-和-t-互为变位词（字母异位词）。"><a href="#3、给定两个字符串-s-和-t-，编写一个函数来判断它们是不是一组变位词（字母异位词）。注意：若-s-和-t-中每个字符出现的次数都相同且字符顺序不完全相同，则称-s-和-t-互为变位词（字母异位词）。" class="headerlink" title="3、给定两个字符串 s 和 t ，编写一个函数来判断它们是不是一组变位词（字母异位词）。注意：若 s 和 t 中每个字符出现的次数都相同且字符顺序不完全相同，则称 s 和 t 互为变位词（字母异位词）。"></a>3、给定两个字符串 s 和 t ，编写一个函数来判断它们是不是一组变位词（字母异位词）。注意：若 s 和 t 中每个字符出现的次数都相同且字符顺序不完全相同，则称 s 和 t 互为变位词（字母异位词）。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isAnagram</span><span class="params">(String s, String t)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (s.length() != t.length() || s.equals(t))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span>[]nums = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">26</span>];</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s.length(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(s.charAt(i) != t.charAt(i))&#123;</span><br><span class="line">            flag = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        nums[s.charAt(i) - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!flag)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; t.length(); i++) &#123;</span><br><span class="line">        nums[t.charAt(i) - <span class="string">&#x27;a&#x27;</span>]--;</span><br><span class="line">        <span class="keyword">if</span> (nums[t.charAt(i) - <span class="string">&#x27;a&#x27;</span>] &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果只有小写字母数组就可以保存，如果有其他的字符转用hash表，另外可以用unicode来排序，如下所示</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isAnagram</span><span class="params">(String s, String t)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (s.length() != t.length() || s.equals(t)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">char</span>[] str1 = s.toCharArray();</span><br><span class="line">    <span class="type">char</span>[] str2 = t.toCharArray();</span><br><span class="line">    Arrays.sort(str1);</span><br><span class="line">    Arrays.sort(str2);</span><br><span class="line">    <span class="keyword">return</span> Arrays.equals(str1, str2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/17/%E5%89%91%E6%8C%87LeetCodeDay9%E9%93%BE%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Just TC">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Just Do It Later">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/17/%E5%89%91%E6%8C%87LeetCodeDay9%E9%93%BE%E8%A1%A8/" class="post-title-link" itemprop="url">LeetCodeDay9链表</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-17 10:43:20 / 修改时间：15:32:38" itemprop="dateCreated datePublished" datetime="2022-06-17T10:43:20+08:00">2022-06-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1、给定一个链表的-头节点-head，请判断其是否为回文链表。如果一个链表是回文，那么链表节点序列从前往后看和从后往前看是相同的。"><a href="#1、给定一个链表的-头节点-head，请判断其是否为回文链表。如果一个链表是回文，那么链表节点序列从前往后看和从后往前看是相同的。" class="headerlink" title="1、给定一个链表的 **头节点 **head，请判断其是否为回文链表。如果一个链表是回文，那么链表节点序列从前往后看和从后往前看是相同的。"></a>1、给定一个链表的 **头节点 **<code>head</code>，请判断其是否为回文链表。如果一个链表是回文，那么链表节点序列从前往后看和从后往前看是相同的。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">reverseList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">next</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">pre</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">while</span> (next != <span class="literal">null</span>)&#123;</span><br><span class="line">        next = head.next;</span><br><span class="line">        head.next = pre;</span><br><span class="line">        pre = head;</span><br><span class="line">        head = next == <span class="literal">null</span> ? head : next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isPalindrome</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">slow</span> <span class="operator">=</span> head.next;</span><br><span class="line">    <span class="keyword">if</span> (slow == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">fast</span> <span class="operator">=</span> head.next.next;</span><br><span class="line">    <span class="keyword">while</span> (fast != <span class="literal">null</span>)&#123;</span><br><span class="line">        slow = slow.next;</span><br><span class="line">        fast = fast.next == <span class="literal">null</span> || fast.next.next == <span class="literal">null</span>? <span class="literal">null</span> : fast.next.next;</span><br><span class="line">    &#125;</span><br><span class="line">    fast = head;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">reverseNode</span> <span class="operator">=</span> reverseList(slow);</span><br><span class="line">    <span class="keyword">while</span> (reverseNode != <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (reverseNode.val != fast.val)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        reverseNode = reverseNode.next;</span><br><span class="line">        fast = fast.next;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>快慢指针找到中点，后半部门链表逆序，比较之后后半部分再逆序就行了</p>
+<p>遍历链表，用数组保存，再遍历用数组下标对应的比较</p>
+<h3 id="2、多级双向链表中，除了指向下一个节点和前一个节点指针之外，它还有一个子链表指针，可能指向单独的双向链表。这些子列表也可能会有一个或多个自己的子项，依此类推，生成多级数据结构，如下面的示例所示。给定位于列表第一级的头节点，请扁平化列表，即将这样的多级双向链表展平成普通的双向链表，使所有结点出现在单级双链表中。"><a href="#2、多级双向链表中，除了指向下一个节点和前一个节点指针之外，它还有一个子链表指针，可能指向单独的双向链表。这些子列表也可能会有一个或多个自己的子项，依此类推，生成多级数据结构，如下面的示例所示。给定位于列表第一级的头节点，请扁平化列表，即将这样的多级双向链表展平成普通的双向链表，使所有结点出现在单级双链表中。" class="headerlink" title="2、多级双向链表中，除了指向下一个节点和前一个节点指针之外，它还有一个子链表指针，可能指向单独的双向链表。这些子列表也可能会有一个或多个自己的子项，依此类推，生成多级数据结构，如下面的示例所示。给定位于列表第一级的头节点，请扁平化列表，即将这样的多级双向链表展平成普通的双向链表，使所有结点出现在单级双链表中。"></a>2、多级双向链表中，除了指向下一个节点和前一个节点指针之外，它还有一个子链表指针，可能指向单独的双向链表。这些子列表也可能会有一个或多个自己的子项，依此类推，生成多级数据结构，如下面的示例所示。给定位于列表第一级的头节点，请扁平化列表，即将这样的多级双向链表展平成普通的双向链表，使所有结点出现在单级双链表中。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Node <span class="title function_">flatten</span><span class="params">(Node head)</span> &#123;</span><br><span class="line">    <span class="type">Node</span> <span class="variable">res</span> <span class="operator">=</span> head;</span><br><span class="line">    digui(head);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> Node <span class="title function_">digui</span><span class="params">(Node head)</span>&#123;</span><br><span class="line">    Node next;</span><br><span class="line">    <span class="keyword">while</span> (head != <span class="literal">null</span>)&#123;</span><br><span class="line">        next = head.next;</span><br><span class="line">        <span class="keyword">if</span> (head.child != <span class="literal">null</span>)&#123;</span><br><span class="line">            head.next = head.child;</span><br><span class="line">            head.child = <span class="literal">null</span>;</span><br><span class="line">            head = digui(head);</span><br><span class="line">        &#125;</span><br><span class="line">        head.next = next;</span><br><span class="line">        <span class="keyword">if</span> (head.next == <span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        next.prev = head;</span><br><span class="line">        head = head.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>递归</p>
+<h3 id="3、给定循环单调非递减列表中的一个点，写一个函数向这个列表中插入一个新元素-insertVal-，使这个列表仍然是循环升序的。给定的可以是这个列表中任意一个顶点的指针，并不一定是这个列表中最小元素的指针。如果有多个满足条件的插入位置，可以选择任意一个位置插入新的值，插入后整个列表仍然保持有序。如果列表为空（给定的节点是-null），需要创建一个循环有序列表并返回这个节点。否则。请返回原先给定的节点。"><a href="#3、给定循环单调非递减列表中的一个点，写一个函数向这个列表中插入一个新元素-insertVal-，使这个列表仍然是循环升序的。给定的可以是这个列表中任意一个顶点的指针，并不一定是这个列表中最小元素的指针。如果有多个满足条件的插入位置，可以选择任意一个位置插入新的值，插入后整个列表仍然保持有序。如果列表为空（给定的节点是-null），需要创建一个循环有序列表并返回这个节点。否则。请返回原先给定的节点。" class="headerlink" title="3、给定循环单调非递减列表中的一个点，写一个函数向这个列表中插入一个新元素 insertVal ，使这个列表仍然是循环升序的。给定的可以是这个列表中任意一个顶点的指针，并不一定是这个列表中最小元素的指针。如果有多个满足条件的插入位置，可以选择任意一个位置插入新的值，插入后整个列表仍然保持有序。如果列表为空（给定的节点是 null），需要创建一个循环有序列表并返回这个节点。否则。请返回原先给定的节点。"></a>3、给定循环单调非递减列表中的一个点，写一个函数向这个列表中插入一个新元素 insertVal ，使这个列表仍然是循环升序的。给定的可以是这个列表中任意一个顶点的指针，并不一定是这个列表中最小元素的指针。如果有多个满足条件的插入位置，可以选择任意一个位置插入新的值，插入后整个列表仍然保持有序。如果列表为空（给定的节点是 null），需要创建一个循环有序列表并返回这个节点。否则。请返回原先给定的节点。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Node <span class="title function_">insert</span><span class="params">(Node head, <span class="type">int</span> insertVal)</span> &#123;</span><br><span class="line">    <span class="type">Node</span> <span class="variable">curNode</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="keyword">if</span> (head == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="type">Node</span> <span class="variable">insertNode</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Node</span>(insertVal);</span><br><span class="line">        insertNode.next = insertNode;</span><br><span class="line">        <span class="keyword">return</span> insertNode;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">Node</span> <span class="variable">curNextNode</span> <span class="operator">=</span> head.next == head ? <span class="literal">null</span> : head.next;</span><br><span class="line">    <span class="keyword">if</span> (curNextNode == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="type">Node</span> <span class="variable">insertNode</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Node</span>(insertVal,head);</span><br><span class="line">        head.next = insertNode;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> ((insertVal &gt;= curNode.val &amp;&amp; insertVal &lt;= curNextNode.val) || curNextNode == head || (curNextNode.val &lt; curNode.val &amp;&amp; (insertVal &lt;= curNextNode.val || insertVal &gt;= curNode.val)) )&#123;</span><br><span class="line">            <span class="type">Node</span> <span class="variable">insertNode</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Node</span>(insertVal, curNextNode);</span><br><span class="line">            curNode.next = insertNode;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        curNode = curNextNode;</span><br><span class="line">        curNextNode = curNextNode.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/16/%E5%89%91%E6%8C%87LeetCodeDay8%E9%93%BE%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Just TC">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Just Do It Later">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/16/%E5%89%91%E6%8C%87LeetCodeDay8%E9%93%BE%E8%A1%A8/" class="post-title-link" itemprop="url">LeetCodeDay8链表</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-16 10:13:58 / 修改时间：17:35:42" itemprop="dateCreated datePublished" datetime="2022-06-16T10:13:58+08:00">2022-06-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1、给定单链表的头节点-head-，请反转链表，并返回反转后的链表的头节点。"><a href="#1、给定单链表的头节点-head-，请反转链表，并返回反转后的链表的头节点。" class="headerlink" title="1、给定单链表的头节点 head ，请反转链表，并返回反转后的链表的头节点。"></a>1、给定单链表的头节点 <code>head</code> ，请反转链表，并返回反转后的链表的头节点。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">reverseList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (head == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">next</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">pre</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">while</span> (next != <span class="literal">null</span>)&#123;</span><br><span class="line">        next = head.next;</span><br><span class="line">        head.next = pre;</span><br><span class="line">        pre = head;</span><br><span class="line">        head = next == <span class="literal">null</span> ? head : next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用pre 和 next 记录之前和之后的节点，每个节点先指向前一个节点</p>
+<h3 id="2、给定两个-非空链表-l1和-l2-来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位数字。将这两数相加会返回一个新的链表。可以假设除了数字-0-之外，这两个数字都不会以零开头。"><a href="#2、给定两个-非空链表-l1和-l2-来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位数字。将这两数相加会返回一个新的链表。可以假设除了数字-0-之外，这两个数字都不会以零开头。" class="headerlink" title="2、给定两个 非空链表 l1和 l2 来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位数字。将这两数相加会返回一个新的链表。可以假设除了数字 0 之外，这两个数字都不会以零开头。"></a>2、给定两个 非空链表 l1和 l2 来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位数字。将这两数相加会返回一个新的链表。可以假设除了数字 0 之外，这两个数字都不会以零开头。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">reverseList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">next</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">pre</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">while</span> (next != <span class="literal">null</span>)&#123;</span><br><span class="line">        next = head.next;</span><br><span class="line">        head.next = pre;</span><br><span class="line">        pre = head;</span><br><span class="line">        head = next == <span class="literal">null</span> ? head : next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> &#123;</span><br><span class="line">    l1 = reverseList(l1);</span><br><span class="line">    l2 = reverseList(l2);</span><br><span class="line">    <span class="type">int</span> <span class="variable">carry</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">nextNode</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">while</span> (l1 != <span class="literal">null</span> || l2 != <span class="literal">null</span> || carry != <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">val1</span> <span class="operator">=</span> l1 == <span class="literal">null</span> ? <span class="number">0</span> : l1.val;</span><br><span class="line">        <span class="type">int</span> <span class="variable">val2</span> <span class="operator">=</span> l2 == <span class="literal">null</span> ? <span class="number">0</span> : l2.val;</span><br><span class="line">        <span class="type">int</span> <span class="variable">val</span> <span class="operator">=</span> val1 + val2 + carry;</span><br><span class="line">        carry = val/<span class="number">10</span>;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">node</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ListNode</span>(val % <span class="number">10</span>);</span><br><span class="line">        node.next = nextNode;</span><br><span class="line">        nextNode = node;</span><br><span class="line">        l1 = l1 == <span class="literal">null</span> ? <span class="literal">null</span> : l1.next;</span><br><span class="line">        l2 = l2 == <span class="literal">null</span> ? <span class="literal">null</span> : l2.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nextNode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>倒转链表再相加</p>
+<p>如果能修改原链表，可以用栈来做</p>
+<h3 id="3、给定一个单链表-L-的头节点-head-，单链表-L-表示为：-L0-→-L1-→-…-→-Ln-1-→-Ln-请将其重新排列后变为：L0-→-Ln-→-L1-→-Ln-1-→-L2-→-Ln-2-→-不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。"><a href="#3、给定一个单链表-L-的头节点-head-，单链表-L-表示为：-L0-→-L1-→-…-→-Ln-1-→-Ln-请将其重新排列后变为：L0-→-Ln-→-L1-→-Ln-1-→-L2-→-Ln-2-→-不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。" class="headerlink" title="3、给定一个单链表 L 的头节点 head ，单链表 L 表示为： L0 → L1 → … → Ln-1 → Ln 请将其重新排列后变为：L0 → Ln → L1 → Ln-1 → L2 → Ln-2 → 不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。"></a>3、给定一个单链表 L 的头节点 head ，单链表 L 表示为： L0 → L1 → … → Ln-1 → Ln 请将其重新排列后变为：L0 → Ln → L1 → Ln-1 → L2 → Ln-2 → 不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reorderList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">curNode</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (curNode != <span class="literal">null</span>)&#123;</span><br><span class="line">        curNode = curNode.next;</span><br><span class="line">        n++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> ((n &amp; <span class="number">1</span>) == <span class="number">0</span>)&#123;</span><br><span class="line">            n = n - (n - <span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            n = n - n /<span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        curNode = head;</span><br><span class="line">        <span class="keyword">while</span> (n &gt; <span class="number">1</span>)&#123;</span><br><span class="line">            curNode = curNode.next;</span><br><span class="line">            n--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">revertNode</span> <span class="operator">=</span> curNode.next;</span><br><span class="line">        curNode.next = <span class="literal">null</span>;</span><br><span class="line">        revertNode = reverseList(revertNode);</span><br><span class="line">        ListNode nextNode,nextRevertNode;</span><br><span class="line">        <span class="keyword">while</span> (revertNode != <span class="literal">null</span>)&#123;</span><br><span class="line">            nextNode = head.next;</span><br><span class="line">            nextRevertNode = revertNode.next;</span><br><span class="line">            head.next = revertNode;</span><br><span class="line">            revertNode.next = nextNode;</span><br><span class="line">            head = nextNode;</span><br><span class="line">            revertNode = nextRevertNode;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">reverseList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">next</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">pre</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">while</span> (next != <span class="literal">null</span>)&#123;</span><br><span class="line">        next = head.next;</span><br><span class="line">        head.next = pre;</span><br><span class="line">        pre = head;</span><br><span class="line">        head = next == <span class="literal">null</span> ? head : next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>找到需要重合的后半部分，将其逆序，然后依次嵌入即可。</p>
+<p>可以用快慢指针找到中点然后将中点及其后的节点逆序，然后依次嵌入</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/15/redis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Just TC">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Just Do It Later">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/15/redis/" class="post-title-link" itemprop="url">redis</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-15 16:46:26 / 修改时间：22:27:10" itemprop="dateCreated datePublished" datetime="2022-06-15T16:46:26+08:00">2022-06-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%93%E5%AD%98%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">缓存技术</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="redis简介"><a href="#redis简介" class="headerlink" title="redis简介"></a>redis简介</h3><p>redis是内存数据库，主要用作缓存，目前公司用来做字典缓存，除此之外还可以用来做分布式锁，限流器等等。</p>
+<p>redis主要处理流程：缓存中有返回 -&gt; 缓存中没有看数据库 -&gt; 数据库中有更新缓存 -&gt; 数据库中没有返回空数据</p>
+<h3 id="缓存之外的用途"><a href="#缓存之外的用途" class="headerlink" title="缓存之外的用途"></a>缓存之外的用途</h3><p>分布式锁：比较成熟的方案</p>
+<p><img src="/../imags/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81.png" alt="redis分布式锁"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">script</span> <span class="operator">=</span> <span class="string">&quot;if redis.call(&#x27;get&#x27;,KEYS[1]) == ARGV[1] then return redis.call(&#x27;del&#x27;,KEYS[1]) else return 0 end&quot;</span>;</span><br><span class="line">redisTemplate.execute(<span class="keyword">new</span> <span class="title class_">DefaultRedisScript</span>&lt;Long&gt;(script, Long.class), Arrays.asList(<span class="string">&quot;lock&quot;</span>), uuid);</span><br></pre></td></tr></table></figure>
+
+<p>删除锁的时候用脚本完成原子性操作，如果这一步不是原子性的话，会造成解锁的过程中锁过期，B拿到锁，而A转而又将锁解锁。</p>
+<p>进一步可以用Redisson来做分布式锁</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.设置分布式锁</span></span><br><span class="line"><span class="type">RLock</span> <span class="variable">lock</span> <span class="operator">=</span> redisson.getLock(<span class="string">&quot;lock&quot;</span>);</span><br><span class="line"><span class="comment">// 2.占用锁</span></span><br><span class="line">lock.lock();</span><br><span class="line"><span class="comment">// 3.执行业务</span></span><br><span class="line">...</span><br><span class="line"><span class="comment">// 4.释放锁</span></span><br><span class="line">lock.unlock();</span><br><span class="line"></span><br><span class="line"><span class="comment">//读写锁</span></span><br><span class="line"><span class="type">RReadWriteLock</span> <span class="variable">rwlock</span> <span class="operator">=</span> redisson.getReadWriteLock(<span class="string">&quot;anyRWLock&quot;</span>);</span><br><span class="line"><span class="comment">// 最常见的使用方法</span></span><br><span class="line">rwlock.readLock().lock();</span><br><span class="line"><span class="comment">// 或</span></span><br><span class="line">rwlock.writeLock().lock();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 10秒钟以后自动解锁</span></span><br><span class="line"><span class="comment">// 无需调用unlock方法手动解锁</span></span><br><span class="line">rwlock.readLock().lock(<span class="number">10</span>, TimeUnit.SECONDS);</span><br><span class="line"><span class="comment">// 或</span></span><br><span class="line">rwlock.writeLock().lock(<span class="number">10</span>, TimeUnit.SECONDS);</span><br><span class="line"><span class="comment">// 尝试加锁，最多等待100秒，上锁以后10秒自动解锁</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">res</span> <span class="operator">=</span> rwlock.readLock().tryLock(<span class="number">100</span>, <span class="number">10</span>, TimeUnit.SECONDS);</span><br><span class="line"><span class="comment">// 或</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">res</span> <span class="operator">=</span> rwlock.writeLock().tryLock(<span class="number">100</span>, <span class="number">10</span>, TimeUnit.SECONDS);</span><br><span class="line">...</span><br><span class="line">lock.unlock();</span><br></pre></td></tr></table></figure>
+
+<p>信号量用法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyRedissonConfig</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对 Redisson 的使用都是通过 RedissonClient 对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean(destroyMethod=&quot;shutdown&quot;)</span> <span class="comment">// 服务停止后调用 shutdown 方法。</span></span><br><span class="line">    <span class="keyword">public</span> RedissonClient <span class="title function_">redisson</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="comment">// 1.创建配置</span></span><br><span class="line">        <span class="type">Config</span> <span class="variable">config</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Config</span>();</span><br><span class="line">        <span class="comment">// 集群模式</span></span><br><span class="line">        <span class="comment">// config.useClusterServers().addNodeAddress(&quot;127.0.0.1:7004&quot;, &quot;127.0.0.1:7001&quot;);</span></span><br><span class="line">        <span class="comment">// 2.根据 Config 创建出 RedissonClient 示例。</span></span><br><span class="line">        config.useSingleServer().setAddress(<span class="string">&quot;redis://127.0.0.1:6379&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> Redisson.create(config);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line">RedissonClient redissonClient;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;park&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">park</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">    <span class="comment">// 获取信号量（停车场）</span></span><br><span class="line">    <span class="type">RSemaphore</span> <span class="variable">park</span> <span class="operator">=</span> redissonClient.getSemaphore(<span class="string">&quot;park&quot;</span>);</span><br><span class="line">    <span class="comment">// 获取一个信号（停车位）</span></span><br><span class="line">    park.acquire();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;OK&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;leave&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">leave</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">    <span class="comment">// 获取信号量（停车场）</span></span><br><span class="line">    <span class="type">RSemaphore</span> <span class="variable">park</span> <span class="operator">=</span> redissonClient.getSemaphore(<span class="string">&quot;park&quot;</span>);</span><br><span class="line">    <span class="comment">// 释放一个信号（停车位）</span></span><br><span class="line">    park.release();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;OK&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>提前设置park车位数量，当数量耗尽，请求会一直等待</p>
+<p>当然也可以用tryAcquire 或者 tryAcquireAsync避免请求阻塞</p>
+<p>限流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedisLimiterHelper</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> RedisTemplate&lt;String, Serializable&gt; <span class="title function_">limitRedisTemplate</span><span class="params">(LettuceConnectionFactory redisConnectionFactory)</span> &#123;</span><br><span class="line">        RedisTemplate&lt;String, Serializable&gt; template = <span class="keyword">new</span> <span class="title class_">RedisTemplate</span>&lt;&gt;();</span><br><span class="line">        template.setKeySerializer(<span class="keyword">new</span> <span class="title class_">StringRedisSerializer</span>());</span><br><span class="line">        template.setValueSerializer(<span class="keyword">new</span> <span class="title class_">GenericJackson2JsonRedisSerializer</span>());</span><br><span class="line">        template.setConnectionFactory(redisConnectionFactory);</span><br><span class="line">        <span class="keyword">return</span> template;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">LimitType</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 自定义key</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    CUSTOMER,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 请求者IP</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    IP;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.METHOD, ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Limit &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 名字</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String <span class="title function_">name</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * key</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String <span class="title function_">key</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Key的前缀</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String <span class="title function_">prefix</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 给定的时间范围 单位(秒)</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">period</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 一定时间内最多访问次数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">count</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 限流的类型(用户自定义key 或者 请求ip)</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    LimitType <span class="title function_">limitType</span><span class="params">()</span> <span class="keyword">default</span> LimitType.CUSTOMER;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LimitInterceptor</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> LoggerFactory.getLogger(LimitInterceptor.class);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">UNKNOWN</span> <span class="operator">=</span> <span class="string">&quot;unknown&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> RedisTemplate&lt;String, Serializable&gt; limitRedisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LimitInterceptor</span><span class="params">(RedisTemplate&lt;String, Serializable&gt; limitRedisTemplate)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.limitRedisTemplate = limitRedisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pjp</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@author</span> fu</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@description</span> 切面</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@date</span> 2020/4/8 13:04</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Around(&quot;execution(public * *(..)) &amp;&amp; @annotation(com.example.redis.Limit)&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">interceptor</span><span class="params">(ProceedingJoinPoint pjp)</span> &#123;</span><br><span class="line">        <span class="type">MethodSignature</span> <span class="variable">signature</span> <span class="operator">=</span> (MethodSignature) pjp.getSignature();</span><br><span class="line">        <span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> signature.getMethod();</span><br><span class="line">        <span class="type">Limit</span> <span class="variable">limitAnnotation</span> <span class="operator">=</span> method.getAnnotation(Limit.class);</span><br><span class="line">        <span class="type">LimitType</span> <span class="variable">limitType</span> <span class="operator">=</span> limitAnnotation.limitType();</span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> limitAnnotation.name();</span><br><span class="line">        String key;</span><br><span class="line">        <span class="type">int</span> <span class="variable">limitPeriod</span> <span class="operator">=</span> limitAnnotation.period();</span><br><span class="line">        <span class="type">int</span> <span class="variable">limitCount</span> <span class="operator">=</span> limitAnnotation.count();</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 根据限流类型获取不同的key ,如果不传我们会以方法名作为key</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">switch</span> (limitType) &#123;</span><br><span class="line">            <span class="keyword">case</span> IP:</span><br><span class="line">                key = getIpAddress();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> CUSTOMER:</span><br><span class="line">                key = limitAnnotation.key();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                key = StringUtils.upperCase(method.getName());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ImmutableList&lt;String&gt; keys = ImmutableList.of(StringUtils.join(limitAnnotation.prefix(), key));</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">luaScript</span> <span class="operator">=</span> buildLuaScript();</span><br><span class="line">            RedisScript&lt;Long&gt; redisScript = <span class="keyword">new</span> <span class="title class_">DefaultRedisScript</span>&lt;&gt;(luaScript, Long.class);</span><br><span class="line">            <span class="type">Long</span> <span class="variable">count</span> <span class="operator">=</span> limitRedisTemplate.execute(redisScript, keys, limitCount, limitPeriod);</span><br><span class="line">            logger.info(<span class="string">&quot;Access try count is &#123;&#125; for name=&#123;&#125; and key = &#123;&#125;&quot;</span>, count, name, key);</span><br><span class="line">            <span class="keyword">if</span> (count != <span class="literal">null</span> &amp;&amp; count.intValue() &lt;= limitCount) &#123;</span><br><span class="line">                <span class="keyword">return</span> pjp.proceed();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;You have been dragged into the blacklist&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">            <span class="keyword">if</span> (e <span class="keyword">instanceof</span> RuntimeException) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e.getLocalizedMessage());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;server exception&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@author</span> fu</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@description</span> 编写 redis Lua 限流脚本</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@date</span> 2020/4/8 13:24</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">buildLuaScript</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">lua</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        lua.append(<span class="string">&quot;local c&quot;</span>);</span><br><span class="line">        lua.append(<span class="string">&quot;\nc = redis.call(&#x27;get&#x27;,KEYS[1])&quot;</span>);</span><br><span class="line">        <span class="comment">// 调用不超过最大值，则直接返回</span></span><br><span class="line">        lua.append(<span class="string">&quot;\nif c and tonumber(c) &gt; tonumber(ARGV[1]) then&quot;</span>);</span><br><span class="line">        lua.append(<span class="string">&quot;\nreturn c;&quot;</span>);</span><br><span class="line">        lua.append(<span class="string">&quot;\nend&quot;</span>);</span><br><span class="line">        <span class="comment">// 执行计算器自加</span></span><br><span class="line">        lua.append(<span class="string">&quot;\nc = redis.call(&#x27;incr&#x27;,KEYS[1])&quot;</span>);</span><br><span class="line">        lua.append(<span class="string">&quot;\nif tonumber(c) == 1 then&quot;</span>);</span><br><span class="line">        <span class="comment">// 从第一次调用开始限流，设置对应键值的过期</span></span><br><span class="line">        lua.append(<span class="string">&quot;\nredis.call(&#x27;expire&#x27;,KEYS[1],ARGV[2])&quot;</span>);</span><br><span class="line">        lua.append(<span class="string">&quot;\nend&quot;</span>);</span><br><span class="line">        lua.append(<span class="string">&quot;\nreturn c;&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> lua.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@author</span> fu</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@description</span> 获取id地址</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@date</span> 2020/4/8 13:24</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getIpAddress</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">HttpServletRequest</span> <span class="variable">request</span> <span class="operator">=</span> ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();</span><br><span class="line">        <span class="type">String</span> <span class="variable">ip</span> <span class="operator">=</span> request.getHeader(<span class="string">&quot;x-forwarded-for&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (ip == <span class="literal">null</span> || ip.length() == <span class="number">0</span> || UNKNOWN.equalsIgnoreCase(ip)) &#123;</span><br><span class="line">            ip = request.getHeader(<span class="string">&quot;Proxy-Client-IP&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (ip == <span class="literal">null</span> || ip.length() == <span class="number">0</span> || UNKNOWN.equalsIgnoreCase(ip)) &#123;</span><br><span class="line">            ip = request.getHeader(<span class="string">&quot;WL-Proxy-Client-IP&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (ip == <span class="literal">null</span> || ip.length() == <span class="number">0</span> || UNKNOWN.equalsIgnoreCase(ip)) &#123;</span><br><span class="line">            ip = request.getRemoteAddr();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ip;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">spring.redis.host=<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">spring.redis.port=<span class="number">6379</span></span><br><span class="line">spring.redis.password=<span class="number">123456</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">AtomicInteger</span> <span class="variable">ATOMIC_INTEGER_1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AtomicInteger</span>();</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">AtomicInteger</span> <span class="variable">ATOMIC_INTEGER_2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AtomicInteger</span>();</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">AtomicInteger</span> <span class="variable">ATOMIC_INTEGER_3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AtomicInteger</span>();</span><br><span class="line"></span><br><span class="line"><span class="meta">@Limit(key = &quot;limitTest&quot;, period = 10, count = 3)</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/limitTest1&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">testLimiter1</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ATOMIC_INTEGER_1.incrementAndGet();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Limit(key = &quot;customer_limit_test&quot;, period = 10, count = 3, limitType = LimitType.CUSTOMER)</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/limitTest2&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">testLimiter2</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ATOMIC_INTEGER_2.incrementAndGet();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Limit(key = &quot;ip_limit_test&quot;, period = 10, count = 3, limitType = LimitType.IP)</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/limitTest3&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">testLimiter3</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> ATOMIC_INTEGER_3.incrementAndGet();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Redis线程模型"><a href="#Redis线程模型" class="headerlink" title="Redis线程模型"></a>Redis线程模型</h3><p>6.0之前是单线程，因为性能瓶颈在内存和网络，多线程反而会存在死锁，线程上下文切换等问题，会影响性能</p>
+<p>6.0之后主要是为了提高网络IO读写性能</p>
+<h3 id="Redis内存管理"><a href="#Redis内存管理" class="headerlink" title="Redis内存管理"></a>Redis内存管理</h3><p>惰性过期和定期过期</p>
+<h3 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h3><p>快照副本RDB</p>
+<p>命令保存AOF</p>
+<h3 id="生产问题"><a href="#生产问题" class="headerlink" title="生产问题"></a>生产问题</h3><p>缓存传统：无效key击中数据库</p>
+<p>缓存无效key设置过期时间</p>
+<p>使用布隆过滤器保存素有可能存在的值，请求过来的时候布隆过滤器中找不到的则返回错误信息，布隆过滤器原理是用多个hash函数计算的值n，将第位n位信息上的0改为1，多个hash函数代表会改多个值，如果hash函数过少或者数组过小，可能会放过大量请求，但是如果两者过多，又会增加负担。不过基于其原理，它不可能把有值的数据拦住，只可能把无效的key错放。</p>
+<p>缓存雪崩</p>
+<p>限流、随机过期时间，集群等等</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/15/%E5%89%91%E6%8C%87LeetCodeDay7%E9%93%BE%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Just TC">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Just Do It Later">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/15/%E5%89%91%E6%8C%87LeetCodeDay7%E9%93%BE%E8%A1%A8/" class="post-title-link" itemprop="url">LeetCodeDay7链表</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-15 10:28:44 / 修改时间：14:52:31" itemprop="dateCreated datePublished" datetime="2022-06-15T10:28:44+08:00">2022-06-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1、给定一个链表，删除链表的倒数第-n-个结点，并且返回链表的头结点。"><a href="#1、给定一个链表，删除链表的倒数第-n-个结点，并且返回链表的头结点。" class="headerlink" title="1、给定一个链表，删除链表的倒数第 n* *个结点，并且返回链表的头结点。"></a>1、给定一个链表，删除链表的倒数第 <code>n</code>* *个结点，并且返回链表的头结点。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">removeNthFromEnd</span><span class="params">(ListNode head, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">low</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">fast</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="keyword">while</span> (n &gt; <span class="number">0</span> &amp;&amp; fast != <span class="literal">null</span>)&#123;</span><br><span class="line">        fast = fast.next;</span><br><span class="line">        n--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">0</span> || fast == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head.next == <span class="literal">null</span> ? <span class="literal">null</span> : head.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (fast.next != <span class="literal">null</span>)&#123;</span><br><span class="line">        low = low.next;</span><br><span class="line">        fast = fast.next;</span><br><span class="line">    &#125;</span><br><span class="line">    low.next = low.next.next == <span class="literal">null</span> ? <span class="literal">null</span> : low.next.next;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用栈储存然后弹出n个，或者用双指针，fast先走n步，low就在要删的节点前一个，再处理一下边界值就可以了</p>
+<h3 id="2、给定一个链表，返回链表开始入环的第一个节点。-从链表的头节点开始沿着-next-指针进入环的第一个节点为环的入口节点。如果链表无环，则返回-null。为了表示给定链表中的环，我们使用整数-pos-来表示链表尾连接到链表中的位置（索引从-0-开始）。-如果-pos-是-1，则在该链表中没有环。注意，pos-仅仅是用于标识环的情况，并不会作为参数传递到函数中。说明：不允许修改给定的链表。"><a href="#2、给定一个链表，返回链表开始入环的第一个节点。-从链表的头节点开始沿着-next-指针进入环的第一个节点为环的入口节点。如果链表无环，则返回-null。为了表示给定链表中的环，我们使用整数-pos-来表示链表尾连接到链表中的位置（索引从-0-开始）。-如果-pos-是-1，则在该链表中没有环。注意，pos-仅仅是用于标识环的情况，并不会作为参数传递到函数中。说明：不允许修改给定的链表。" class="headerlink" title="2、给定一个链表，返回链表开始入环的第一个节点。 从链表的头节点开始沿着 next 指针进入环的第一个节点为环的入口节点。如果链表无环，则返回 null。为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意，pos 仅仅是用于标识环的情况，并不会作为参数传递到函数中。说明：不允许修改给定的链表。"></a>2、给定一个链表，返回链表开始入环的第一个节点。 从链表的头节点开始沿着 next 指针进入环的第一个节点为环的入口节点。如果链表无环，则返回 null。为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意，pos 仅仅是用于标识环的情况，并不会作为参数传递到函数中。说明：不允许修改给定的链表。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">detectCycle</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">low</span> <span class="operator">=</span> head != <span class="literal">null</span> ? head.next : <span class="literal">null</span>;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">fast</span> <span class="operator">=</span> low != <span class="literal">null</span> ?head.next.next : <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (head == <span class="literal">null</span> || low == <span class="literal">null</span> || fast == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (low != fast)&#123;</span><br><span class="line">        low = low.next;</span><br><span class="line">        <span class="keyword">if</span> (fast.next != <span class="literal">null</span> &amp;&amp; fast.next.next != <span class="literal">null</span>)&#123;</span><br><span class="line">            fast = fast.next.next;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    low = head;</span><br><span class="line">    <span class="keyword">while</span> (low != fast)&#123;</span><br><span class="line">        low = low.next;</span><br><span class="line">        fast = fast.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> low;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有环的话，用快慢指针，快指针走两步慢指针走一步，当快指针等于慢指针的时候，慢指针回到头节点，两个节点一步一步前进直至相遇，这个节点就是入环节点。</p>
+<p>或者用hashMap来做</p>
+<h3 id="3、给定两个单链表的头节点-headA-和-headB-，请找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回-null-。题目数据-保证-整个链式结构中不存在环。注意-，函数返回结果后，链表必须-保持其原始结构。"><a href="#3、给定两个单链表的头节点-headA-和-headB-，请找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回-null-。题目数据-保证-整个链式结构中不存在环。注意-，函数返回结果后，链表必须-保持其原始结构。" class="headerlink" title="3、给定两个单链表的头节点 headA 和 headB ，请找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。题目数据 保证 整个链式结构中不存在环。注意**，函数返回结果后，链表必须 **保持其原始结构。"></a>3、给定两个单链表的头节点 <code>headA</code> 和 <code>headB</code> ，请找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 <code>null</code> 。题目数据 <strong>保证</strong> 整个链式结构中不存在环。注意**，函数返回结果后，链表必须 **保持其原始结构。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">nodeA</span> <span class="operator">=</span> headA;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">nodeB</span> <span class="operator">=</span> headB;</span><br><span class="line">    <span class="keyword">while</span> (headA.next != <span class="literal">null</span>)&#123;</span><br><span class="line">        headA = headA.next;</span><br><span class="line">        num++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (headB.next != <span class="literal">null</span>)&#123;</span><br><span class="line">        headB = headB.next;</span><br><span class="line">        num--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (headA != headB)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (num &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">while</span> (num &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            nodeA = nodeA.next;</span><br><span class="line">            num--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (num &lt; <span class="number">0</span>)&#123;</span><br><span class="line">            nodeB = nodeB.next;</span><br><span class="line">            num++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (nodeA != nodeB)&#123;</span><br><span class="line">        nodeA = nodeA.next;</span><br><span class="line">        nodeB = nodeB.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nodeA;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>两个列表都走到最后，如果末尾节点相等则相交，不相等则不相交。（每个节点只能不指向任何节点或者指向一个节点，如果是X形相交，相交点必然指向两个不同的节点，所以只能是V型或者Y型）</p>
+<p>两个列表长度不一的话，长的链表先走差值步，然后和短列表一起走到相等的节点，就是相交起始节点</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/14/%E5%89%91%E6%8C%87LeetCodeDay6%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Just TC">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Just Do It Later">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/14/%E5%89%91%E6%8C%87LeetCodeDay6%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-title-link" itemprop="url">LeetcodeDay6字符串</a>
         </h2>
 
         <div class="post-meta">
@@ -247,7 +744,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/13/LeetCodeDay5%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/13/%E5%89%91%E6%8C%87LeetCodeDay5%E5%AD%97%E7%AC%A6%E4%B8%B2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
@@ -261,7 +758,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/06/13/LeetCodeDay5%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-title-link" itemprop="url">LeetCodeDay5字符串</a>
+            <a href="/2022/06/13/%E5%89%91%E6%8C%87LeetCodeDay5%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-title-link" itemprop="url">LeetCodeDay5字符串</a>
         </h2>
 
         <div class="post-meta">
@@ -326,7 +823,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/12/leetCodeDay4%E6%95%B0%E7%BB%84/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/12/%E5%89%91%E6%8C%87LeetCodeDay4%E6%95%B0%E7%BB%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
@@ -340,7 +837,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/06/12/leetCodeDay4%E6%95%B0%E7%BB%84/" class="post-title-link" itemprop="url">leetCodeDay4数组</a>
+            <a href="/2022/06/12/%E5%89%91%E6%8C%87LeetCodeDay4%E6%95%B0%E7%BB%84/" class="post-title-link" itemprop="url">leetCodeDay4数组</a>
         </h2>
 
         <div class="post-meta">
@@ -418,7 +915,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/11/leetCodeDay3%E6%95%B0%E7%BB%84/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/11/%E5%89%91%E6%8C%87LeetCodeDay3%E6%95%B0%E7%BB%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
@@ -432,7 +929,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/06/11/leetCodeDay3%E6%95%B0%E7%BB%84/" class="post-title-link" itemprop="url">leetCodeDay3数组</a>
+            <a href="/2022/06/11/%E5%89%91%E6%8C%87LeetCodeDay3%E6%95%B0%E7%BB%84/" class="post-title-link" itemprop="url">leetCodeDay3数组</a>
         </h2>
 
         <div class="post-meta">
@@ -490,239 +987,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/10/%E6%83%B3%E5%81%9A%E6%B8%B8%E6%88%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="Just TC">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Just Do It Later">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/10/%E6%83%B3%E5%81%9A%E6%B8%B8%E6%88%8F/" class="post-title-link" itemprop="url">想做游戏</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-06-10 22:00:37" itemprop="dateCreated datePublished" datetime="2022-06-10T22:00:37+08:00">2022-06-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-12 22:09:42" itemprop="dateModified" datetime="2022-06-12T22:09:42+08:00">2022-06-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">游戏开发</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>什么时候能获得内心的平静，不焦躁，不迷惘，才能真正的享受生活，我希望自己能早日达到这种境界。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/10/leetCode%E6%95%B4%E6%95%B0%E8%BF%90%E7%AE%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="Just TC">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Just Do It Later">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/10/leetCode%E6%95%B4%E6%95%B0%E8%BF%90%E7%AE%97/" class="post-title-link" itemprop="url">leetCode整数运算</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-06-10 16:35:15 / 修改时间：22:03:27" itemprop="dateCreated datePublished" datetime="2022-06-10T16:35:15+08:00">2022-06-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1、给定一个非负整数-n，请计算-0-到-n-之间的每个数字的二进制表示中-1-的个数，并输出一个数组。"><a href="#1、给定一个非负整数-n，请计算-0-到-n-之间的每个数字的二进制表示中-1-的个数，并输出一个数组。" class="headerlink" title="1、给定一个非负整数 n，请计算 0 到 n 之间的每个数字的二进制表示中 1 的个数，并输出一个数组。"></a>1、给定一个非负整数 n，请计算 <code>0</code> 到 <code>n</code> 之间的每个数字的二进制表示中 1 的个数，并输出一个数组。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] countBits(<span class="type">int</span> n) &#123;</span><br><span class="line">    <span class="type">int</span>[] res = <span class="keyword">new</span> <span class="title class_">int</span>[n+<span class="number">1</span>];</span><br><span class="line">    res[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        res[i] = res[i &gt;&gt; <span class="number">1</span>] + (i &amp; <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>偶数：二进制中末位肯定是0，所以右移一位（/2）后得到的1和原本的一样</p>
-<p>奇数：二进制中末位肯定是1，右移一位后得到的1将会减少1个，所以用i&amp;1来判断是否为奇数并找回这1个</p>
-<h3 id="2、给你一个整数数组-nums-，除某个元素仅出现-一次-外，其余每个元素都恰出现-三次-。请你找出并返回那个只出现了一次的元素。"><a href="#2、给你一个整数数组-nums-，除某个元素仅出现-一次-外，其余每个元素都恰出现-三次-。请你找出并返回那个只出现了一次的元素。" class="headerlink" title="2、给你一个整数数组 nums ，除某个元素仅出现 一次 外，其余每个元素都恰出现 三次 。请你找出并返回那个只出现了一次的元素。"></a>2、给你一个整数数组 <code>nums</code> ，除某个元素仅出现 <strong>一次</strong> 外，其余每个元素都恰出现 <strong>三次 。</strong>请你找出并返回那个只出现了一次的元素。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">singleNumber</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">32</span>;i++)&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; nums.length; j++) &#123;</span><br><span class="line">            count += (nums[j] &gt;&gt; i) &amp; <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ((count % <span class="number">3</span>) == <span class="number">1</span>)&#123;</span><br><span class="line">            res += (<span class="number">1</span> &lt;&lt; i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在java中int是32位，因为每个重复的数都是重复三次，所以可以求出每一位上是1还是0</p>
-<p>从向右移动0位，到向右移动31位，据此求出1到32位上的1和0，具体则是每一位上的1或者0都是3的倍数，如果不是倍数，则会多一个，所以我们取余3，如果剩余的数是1，那么这一位上就是1</p>
-<h3 id="3、给定一个字符串数组-words，请计算当两个字符串-words-i-和-words-j-不包含相同字符时，它们长度的乘积的最大值。假设字符串中只包含英语的小写字母。如果没有不包含相同字符的一对字符串，返回-0。"><a href="#3、给定一个字符串数组-words，请计算当两个字符串-words-i-和-words-j-不包含相同字符时，它们长度的乘积的最大值。假设字符串中只包含英语的小写字母。如果没有不包含相同字符的一对字符串，返回-0。" class="headerlink" title="3、给定一个字符串数组 words，请计算当两个字符串 words[i] 和 words[j] 不包含相同字符时，它们长度的乘积的最大值。假设字符串中只包含英语的小写字母。如果没有不包含相同字符的一对字符串，返回 0。"></a>3、给定一个字符串数组 words，请计算当两个字符串 words[i] 和 words[j] 不包含相同字符时，它们长度的乘积的最大值。假设字符串中只包含英语的小写字母。如果没有不包含相同字符的一对字符串，返回 0。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxProduct</span><span class="params">(String[] words)</span> &#123;</span><br><span class="line">   <span class="type">int</span>[] binary = <span class="keyword">new</span> <span class="title class_">int</span>[words.length];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; words.length; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; words[i].length(); j++) &#123;</span><br><span class="line">            binary[i] |= <span class="number">1</span> &lt;&lt; (words[i].charAt(j) - <span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; words.length; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i + <span class="number">1</span>; j &lt; words.length;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span> ((binary[i] &amp; binary[j]) == <span class="number">0</span>)&#123;</span><br><span class="line">                max = Math.max(max,words[i].length() * words[j].length());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>因为java int是32位，二十六个小写字母是26个，所以将每个字母-‘a’获取&lt;32的asc码</p>
-<p>然后根据字母的值，在其位置上添加1位标记</p>
-<p>循环比较的时候，如果两个字符串没有任何相等的字母，那么他们的与结果将会为0</p>
-<p>这道题用int的位信息来保存每个字符串的信息</p>
-<h3 id="4、给定一个已按照-升序排列-的整数数组-numbers-，请你从数组中找出两个数满足相加之和等于目标数-target-。函数应该以长度为-2-的整数数组的形式返回这两个数的下标值。numbers-的下标-从-0-开始计数-，所以答案数组应当满足-0-lt-answer-0-lt-answer-1-lt-numbers-length-。假设数组中存在且只存在一对符合条件的数字，同时一个数字不能使用两次。"><a href="#4、给定一个已按照-升序排列-的整数数组-numbers-，请你从数组中找出两个数满足相加之和等于目标数-target-。函数应该以长度为-2-的整数数组的形式返回这两个数的下标值。numbers-的下标-从-0-开始计数-，所以答案数组应当满足-0-lt-answer-0-lt-answer-1-lt-numbers-length-。假设数组中存在且只存在一对符合条件的数字，同时一个数字不能使用两次。" class="headerlink" title="4、给定一个已按照 升序排列  的整数数组 numbers ，请你从数组中找出两个数满足相加之和等于目标数 target 。函数应该以长度为 2 的整数数组的形式返回这两个数的下标值。numbers 的下标 从 0 开始计数 ，所以答案数组应当满足 0 &lt;= answer[0] &lt; answer[1] &lt; numbers.length 。假设数组中存在且只存在一对符合条件的数字，同时一个数字不能使用两次。"></a>4、给定一个已按照 升序排列  的整数数组 numbers ，请你从数组中找出两个数满足相加之和等于目标数 target 。函数应该以长度为 2 的整数数组的形式返回这两个数的下标值。numbers 的下标 从 0 开始计数 ，所以答案数组应当满足 0 &lt;= answer[0] &lt; answer[1] &lt; numbers.length 。假设数组中存在且只存在一对符合条件的数字，同时一个数字不能使用两次。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[]res = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">2</span>];</span><br><span class="line"><span class="type">int</span> <span class="variable">indexS</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">indexQ</span> <span class="operator">=</span> numbers.length-<span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span> (indexS &lt; indexQ)&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> numbers[indexS] + numbers[indexQ];</span><br><span class="line">    <span class="keyword">if</span> (num == target)&#123;</span><br><span class="line">        res[<span class="number">0</span>] = indexS;</span><br><span class="line">        res[<span class="number">1</span>] = indexQ;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (num &lt; target)&#123;</span><br><span class="line">        indexS++;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        indexQ--;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure>
-
-<p>使用双指针解决问题，或者二分思想解决问题（将i右侧的数二分）</p>
-<p>当num &lt; target的时候， 右侧的指针已经是最大了，左侧指针和右侧指针左侧的任意数组合都会小于target，所以左侧的指针++</p>
-<p>当num &gt; target的时候，左侧的指针已经是最小了，右侧指针和左侧指针右侧的任意数组合都会大于target，所以右侧的指针++</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/10/elasticSearch/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="Just TC">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Just Do It Later">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/10/elasticSearch/" class="post-title-link" itemprop="url">elasticSearch</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-06-10 11:14:58 / 修改时间：16:34:15" itemprop="dateCreated datePublished" datetime="2022-06-10T11:14:58+08:00">2022-06-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E4%BF%9D%E5%AD%98/" itemprop="url" rel="index"><span itemprop="name">数据保存</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>倒排序：用分词器将文档中的内容进行拆分，拆分出来的单词会和其他文档拆分出来的同样单词，会创建倒排序表，把单词和文档关联起来</p>
-<p>分布式，分片储存</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -790,7 +1058,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -803,7 +1071,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
