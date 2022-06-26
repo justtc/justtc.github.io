@@ -155,6 +155,243 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/26/%E4%B8%AD%E7%BA%A7%E5%85%AC%E5%8F%B8LeetCodeDay4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Just TC">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Just Do It Later">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/26/%E4%B8%AD%E7%BA%A7%E5%85%AC%E5%8F%B8LeetCodeDay4/" class="post-title-link" itemprop="url">中级公司LeetCodeDay4</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-26 18:27:59 / 修改时间：21:28:36" itemprop="dateCreated datePublished" datetime="2022-06-26T18:27:59+08:00">2022-06-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1、给定单链表的头节点-head-，将所有索引为奇数的节点和索引为偶数的节点分别组合在一起，然后返回重新排序的列表。"><a href="#1、给定单链表的头节点-head-，将所有索引为奇数的节点和索引为偶数的节点分别组合在一起，然后返回重新排序的列表。" class="headerlink" title="1、给定单链表的头节点 head ，将所有索引为奇数的节点和索引为偶数的节点分别组合在一起，然后返回重新排序的列表。"></a>1、给定单链表的头节点 head ，将所有索引为奇数的节点和索引为偶数的节点分别组合在一起，然后返回重新排序的列表。</h3><p>第一个节点的索引被认为是 奇数 ， 第二个节点的索引为 偶数 ，以此类推。</p>
+<p>请注意，偶数组和奇数组内部的相对顺序应该与输入时保持一致。</p>
+<p>你必须在 O(1) 的额外空间复杂度和 O(n) 的时间复杂度下解决这个问题。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">oddEvenList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (head == <span class="literal">null</span> || head.next == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">cur</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">sec</span> <span class="operator">=</span> head.next;</span><br><span class="line">    ListNode next;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">danNode</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">while</span> (cur.next != <span class="literal">null</span>)&#123;</span><br><span class="line">        next = cur.next;</span><br><span class="line">        cur.next = next.next == <span class="literal">null</span> ? <span class="literal">null</span> : next.next;</span><br><span class="line">        cur = next;</span><br><span class="line">        <span class="keyword">if</span> (num++ % <span class="number">2</span> != <span class="number">0</span>)&#123;</span><br><span class="line">            danNode = cur;</span><br><span class="line">        &#125;</span><br><span class="line">        next = next.next;</span><br><span class="line">    &#125;</span><br><span class="line">    danNode.next = sec;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、给你链表的头结点-head-，请将其按-升序-排列并返回-排序后的链表-。"><a href="#2、给你链表的头结点-head-，请将其按-升序-排列并返回-排序后的链表-。" class="headerlink" title="2、给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。"></a>2、给你链表的头结点 <code>head</code> ，请将其按 <strong>升序</strong> 排列并返回 <strong>排序后的链表</strong> 。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">sortList</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> process(head,<span class="literal">null</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">process</span> <span class="params">(ListNode head , ListNode end)</span>&#123;</span><br><span class="line">   <span class="keyword">if</span>(head == <span class="literal">null</span>)&#123;</span><br><span class="line">       <span class="keyword">return</span> head;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> (head.next == end)&#123;</span><br><span class="line">       head.next = <span class="literal">null</span>;</span><br><span class="line">       <span class="keyword">return</span> head;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="type">ListNode</span> <span class="variable">low</span> <span class="operator">=</span> head;</span><br><span class="line">   <span class="type">ListNode</span> <span class="variable">fast</span> <span class="operator">=</span> head;</span><br><span class="line">   <span class="keyword">while</span> (fast != end )&#123;</span><br><span class="line">       low = low.next;</span><br><span class="line">       fast = fast.next == end ? fast.next : fast.next.next;</span><br><span class="line">   &#125;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">list1</span> <span class="operator">=</span> process(head, low);</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">list2</span> <span class="operator">=</span> process(low, end);</span><br><span class="line">    <span class="keyword">return</span> merge(list1,list2);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">merge</span><span class="params">(ListNode head1, ListNode head2)</span> &#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">res</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ListNode</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">temp</span> <span class="operator">=</span> res;</span><br><span class="line">    <span class="keyword">while</span> (head1 != <span class="literal">null</span> &amp;&amp; head2 != <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (head1.val &lt;= head2.val)&#123;</span><br><span class="line">            temp.next = head1;</span><br><span class="line">            head1 = head1.next;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            temp.next = head2;</span><br><span class="line">            head2 = head2.next;</span><br><span class="line">        &#125;</span><br><span class="line">        temp = temp.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (head1 != <span class="literal">null</span>)&#123;</span><br><span class="line">        temp.next = head1;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (head2 != <span class="literal">null</span>)&#123;</span><br><span class="line">        temp.next = head2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res.next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>归并排序</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/26/%E5%89%91%E6%8C%87LeetCodeDay18%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Just TC">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Just Do It Later">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/26/%E5%89%91%E6%8C%87LeetCodeDay18%E6%A0%91/" class="post-title-link" itemprop="url">剑指LeetCodeDay18树</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-26 15:41:24 / 修改时间：16:15:29" itemprop="dateCreated datePublished" datetime="2022-06-26T15:41:24+08:00">2022-06-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1、给定一棵二叉搜索树和其中的一个节点-p-，找到该节点在树中的中序后继。如果节点没有中序后继，请返回-null-。"><a href="#1、给定一棵二叉搜索树和其中的一个节点-p-，找到该节点在树中的中序后继。如果节点没有中序后继，请返回-null-。" class="headerlink" title="1、给定一棵二叉搜索树和其中的一个节点 p ，找到该节点在树中的中序后继。如果节点没有中序后继，请返回 null 。"></a>1、给定一棵二叉搜索树和其中的一个节点 p ，找到该节点在树中的中序后继。如果节点没有中序后继，请返回 null 。</h3><p>节点 p 的后继是值比 p.val 大的节点中键值最小的节点，即按中序遍历的顺序节点 p 的下一个节点。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> TreeNode <span class="title function_">inorderSuccessor</span><span class="params">(TreeNode root, TreeNode p)</span> &#123;</span><br><span class="line">    Deque&lt;TreeNode&gt;deque = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">while</span> (root != <span class="literal">null</span> || !deque.isEmpty())&#123;</span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">null</span>)&#123;</span><br><span class="line">            deque.push(root);</span><br><span class="line">            root = root.left;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            root = deque.pop();</span><br><span class="line">            <span class="keyword">if</span> (flag)&#123;</span><br><span class="line">                <span class="keyword">return</span> root;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (root == p)&#123;</span><br><span class="line">                flag = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            root = root.right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以用中序遍历，但是依据这个二叉树的性质，p右子树的最左子树一定是最接近p并大于p的数，可以优化</p>
+<h3 id="2、给定一个二叉搜索树，请将它的每个节点的值替换成树中大于或者等于该节点值的所有节点值之和。"><a href="#2、给定一个二叉搜索树，请将它的每个节点的值替换成树中大于或者等于该节点值的所有节点值之和。" class="headerlink" title="2、给定一个二叉搜索树，请将它的每个节点的值替换成树中大于或者等于该节点值的所有节点值之和。"></a>2、给定一个二叉搜索树，请将它的每个节点的值替换成树中大于或者等于该节点值的所有节点值之和。</h3><p> 提醒一下，二叉搜索树满足下列约束条件：</p>
+<p>节点的左子树仅包含键 小于 节点键的节点。</p>
+<p>节点的右子树仅包含键 大于 节点键的节点。</p>
+<p>左右子树也必须是二叉搜索树。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> TreeNode <span class="title function_">convertBST</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    Deque&lt;TreeNode&gt;deque = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">TreeNode</span> <span class="variable">res</span> <span class="operator">=</span> root;</span><br><span class="line">    <span class="keyword">while</span> (root != <span class="literal">null</span> || !deque.isEmpty())&#123;</span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">null</span>)&#123;</span><br><span class="line">            deque.push(root);</span><br><span class="line">            root = root.right;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            root = deque.pop();</span><br><span class="line">            sum += root.val;</span><br><span class="line">            root.val = sum;</span><br><span class="line">            root = root.left;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>逆中序即可</p>
+<h3 id="3、实现一个二叉搜索树迭代器类BSTIterator-，表示一个按中序遍历二叉搜索树（BST）的迭代器："><a href="#3、实现一个二叉搜索树迭代器类BSTIterator-，表示一个按中序遍历二叉搜索树（BST）的迭代器：" class="headerlink" title="3、实现一个二叉搜索树迭代器类BSTIterator ，表示一个按中序遍历二叉搜索树（BST）的迭代器："></a>3、实现一个二叉搜索树迭代器类BSTIterator ，表示一个按中序遍历二叉搜索树（BST）的迭代器：</h3><p>BSTIterator(TreeNode root) 初始化 BSTIterator 类的一个对象。BST 的根节点 root 会作为构造函数的一部分给出。指针应初始化为一个不存在于 BST 中的数字，且该数字小于 BST 中的任何元素。<br>boolean hasNext() 如果向指针右侧遍历存在数字，则返回 true ；否则返回 false 。<br>int next()将指针向右移动，然后返回指针处的数字。<br>注意，指针初始化为一个不存在于 BST 中的数字，所以对 next() 的首次调用将返回 BST 中的最小元素。</p>
+<p>可以假设 next() 调用总是有效的，也就是说，当调用 next() 时，BST 的中序遍历中至少存在一个下一个数字。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BSTIterator</span> &#123;</span><br><span class="line">    Queue&lt;TreeNode&gt;queue = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BSTIterator</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        Deque&lt;TreeNode&gt;deque = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">        <span class="keyword">while</span> (root != <span class="literal">null</span> || !deque.isEmpty())&#123;</span><br><span class="line">            <span class="keyword">if</span> (root != <span class="literal">null</span>)&#123;</span><br><span class="line">                deque.push(root);</span><br><span class="line">                root = root.left;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                root = deque.pop();</span><br><span class="line">                queue.offer(root);</span><br><span class="line">                root = root.right;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">next</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">TreeNode</span> <span class="variable">poll</span> <span class="operator">=</span> queue.poll();</span><br><span class="line">        <span class="keyword">return</span> poll.val;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">hasNext</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> !queue.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>中序遍历 然后保存在容器中</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/26/%E5%9F%BA%E7%A1%80LeetCodeDay5%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Just TC">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Just Do It Later">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/26/%E5%9F%BA%E7%A1%80LeetCodeDay5%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" class="post-title-link" itemprop="url">基础LeetCodeDay5滑动窗口</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-26 10:56:26 / 修改时间：13:21:12" itemprop="dateCreated datePublished" datetime="2022-06-26T10:56:26+08:00">2022-06-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1、给定两个字符串-s-和-p，找到-s-中所有-p-的-异位词-的子串，返回这些子串的起始索引。不考虑答案输出的顺序。"><a href="#1、给定两个字符串-s-和-p，找到-s-中所有-p-的-异位词-的子串，返回这些子串的起始索引。不考虑答案输出的顺序。" class="headerlink" title="1、给定两个字符串 s 和 p，找到 s 中所有 p 的 异位词 的子串，返回这些子串的起始索引。不考虑答案输出的顺序。"></a>1、给定两个字符串 s 和 p，找到 s 中所有 p 的 异位词 的子串，返回这些子串的起始索引。不考虑答案输出的顺序。</h3><p>异位词 指由相同字母重排列形成的字符串（包括相同的字符串）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">findAnagrams1</span><span class="params">(String s, String p)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt; res = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">if</span> (s.length() &lt; p.length())&#123;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> p.length() - <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span>[]dic = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">26</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; p.length(); i++) &#123;</span><br><span class="line">        dic[p.charAt(i) - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">        dic[s.charAt(i) - <span class="string">&#x27;a&#x27;</span>]--;</span><br><span class="line">    &#125;</span><br><span class="line">    A:<span class="keyword">for</span> (<span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> right,n = left; m &lt; s.length();m++,n++)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">0</span>; k &lt; dic.length; k++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (dic[k] &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                dic[s.charAt(n) - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">                <span class="keyword">if</span> (m &lt; s.length() - <span class="number">1</span>)&#123;</span><br><span class="line">                    dic[s.charAt(m + <span class="number">1</span>) - <span class="string">&#x27;a&#x27;</span>]--;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">continue</span> A;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        dic[s.charAt(n) - <span class="string">&#x27;a&#x27;</span>]++;</span><br><span class="line">        <span class="keyword">if</span> (m &lt; s.length() - <span class="number">1</span>)&#123;</span><br><span class="line">            dic[s.charAt(m +<span class="number">1</span>) - <span class="string">&#x27;a&#x27;</span>]--;</span><br><span class="line">        &#125;</span><br><span class="line">        res.add(n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>常数级的循环其实不耗费性能，如果不想循环字典，可以用dif来表示不同，不过需要注意的是，dif统计的是每个字母 !=0的时候，所以当窗口滑动的时候，只有当某个字母从有到无，从无到有的时候才会变化dif</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; pLen; ++i) &#123;</span><br><span class="line">                ++count[s.charAt(i) - <span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">                --count[p.charAt(i) - <span class="string">&#x27;a&#x27;</span>];</span><br><span class="line"> &#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; sLen - pLen; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (count[s.charAt(i) - <span class="string">&#x27;a&#x27;</span>] == <span class="number">1</span>) &#123;  <span class="comment">// 窗口中字母 s[i] 的数量与字符串 p 中的数量从不同变得相同</span></span><br><span class="line">        --differ;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count[s.charAt(i) - <span class="string">&#x27;a&#x27;</span>] == <span class="number">0</span>) &#123;  <span class="comment">// 窗口中字母 s[i] 的数量与字符串 p 中的数量从相同变得不同</span></span><br><span class="line">        ++differ;</span><br><span class="line">    &#125;</span><br><span class="line">    --count[s.charAt(i) - <span class="string">&#x27;a&#x27;</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (count[s.charAt(i + pLen) - <span class="string">&#x27;a&#x27;</span>] == -<span class="number">1</span>) &#123;  <span class="comment">// 窗口中字母 s[i+pLen] 的数量与字符串 p 中的数量从不同变得相同</span></span><br><span class="line">        --differ;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (count[s.charAt(i + pLen) - <span class="string">&#x27;a&#x27;</span>] == <span class="number">0</span>) &#123;  <span class="comment">// 窗口中字母 s[i+pLen] 的数量与字符串 p 中的数量从相同变得不同</span></span><br><span class="line">        ++differ;</span><br><span class="line">    &#125;</span><br><span class="line">    ++count[s.charAt(i + pLen) - <span class="string">&#x27;a&#x27;</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (differ == <span class="number">0</span>) &#123;</span><br><span class="line">        ans.add(i + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、给你一个整数数组-nums-和一个整数-k-，请你返回子数组内所有元素的乘积严格小于-k-的连续子数组的数目。"><a href="#2、给你一个整数数组-nums-和一个整数-k-，请你返回子数组内所有元素的乘积严格小于-k-的连续子数组的数目。" class="headerlink" title="2、给你一个整数数组 nums 和一个整数 k ，请你返回子数组内所有元素的乘积严格小于* *k 的连续子数组的数目。"></a>2、给你一个整数数组 <code>nums</code> 和一个整数 <code>k</code> ，请你返回子数组内所有元素的乘积严格小于* *<code>k</code> 的连续子数组的数目。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">numSubarrayProductLessThanK1</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> nums.length, ret = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">prod</span> <span class="operator">=</span> <span class="number">1</span>, i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">        prod *= nums[j];</span><br><span class="line">        <span class="keyword">while</span> (i &lt;= j &amp;&amp; prod &gt;= k) &#123;</span><br><span class="line">            prod /= nums[i];</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        ret += j - i + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、给定一个含有-n-个正整数的数组和一个正整数-target-。"><a href="#3、给定一个含有-n-个正整数的数组和一个正整数-target-。" class="headerlink" title="3、给定一个含有 n 个正整数的数组和一个正整数 target 。"></a>3、给定一个含有 n 个正整数的数组和一个正整数 target 。</h3><p>找出该数组中满足其和 ≥ target 的长度最小的 连续子数组 [numsl, numsl+1, …, numsr-1, numsr] ，并返回其长度。如果不存在符合条件的子数组，返回 0 。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">minSubArrayLen1</span><span class="params">(<span class="type">int</span> target, <span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> nums.length , ret = Integer.MAX_VALUE;</span><br><span class="line">    <span class="type">int</span> <span class="variable">mul</span> <span class="operator">=</span> <span class="number">0</span>,i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; n; j++)&#123;</span><br><span class="line">        mul += nums[j];</span><br><span class="line">        <span class="keyword">while</span> (i &lt;= j &amp;&amp; mul &gt;= target)&#123;</span><br><span class="line">            mul -= nums[i];</span><br><span class="line">            ret = Math.min(ret,j - i + <span class="number">1</span>);</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同上</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/25/%E4%B8%AD%E7%BA%A7%E5%85%AC%E5%8F%B8LeetCodeDay3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -180,7 +417,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-06-25 14:05:56 / 修改时间：16:19:32" itemprop="dateCreated datePublished" datetime="2022-06-25T14:05:56+08:00">2022-06-25</time>
+              <time title="创建时间：2022-06-25 14:05:56 / 修改时间：16:22:38" itemprop="dateCreated datePublished" datetime="2022-06-25T14:05:56+08:00">2022-06-25</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -210,7 +447,7 @@
 
 <p>用list来存也可以</p>
 <p>当然更经典是是用快慢指针，因为是要删除倒数第n个，所以让快指针先走n+1步，然后轮流走到底。最终快指针到终点的时候，慢指针正好在要删除的节点前一个。当然边界条件需要控制，例如快指针没走到n+1步就走完了（删除最后一个节点）直接拿head下一个节点返回，或者</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">removeNthFromEnd</span><span class="params">(ListNode head, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">low</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">fast</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="keyword">while</span> (n &gt; <span class="number">0</span> &amp;&amp; fast != <span class="literal">null</span>)&#123;</span><br><span class="line">        fast = fast.next;</span><br><span class="line">        n--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">0</span> || fast == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head.next == <span class="literal">null</span> ? <span class="literal">null</span> : head.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (fast.next != <span class="literal">null</span>)&#123;</span><br><span class="line">        low = low.next;</span><br><span class="line">        fast = fast.next;</span><br><span class="line">    &#125;</span><br><span class="line">    low.next = low.next.next == <span class="literal">null</span> ? <span class="literal">null</span> : low.next.next;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ListNode <span class="title function_">removeNthFromEnd</span><span class="params">(ListNode head, <span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">low</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="type">ListNode</span> <span class="variable">fast</span> <span class="operator">=</span> head;</span><br><span class="line">    <span class="keyword">while</span> (n &gt; <span class="number">0</span> &amp;&amp; fast != <span class="literal">null</span>)&#123;</span><br><span class="line">        fast = fast.next;</span><br><span class="line">        n--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (fast == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head.next == <span class="literal">null</span> ? <span class="literal">null</span> : head.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (fast.next != <span class="literal">null</span>)&#123;</span><br><span class="line">        low = low.next;</span><br><span class="line">        fast = fast.next;</span><br><span class="line">    &#125;</span><br><span class="line">    low.next = low.next.next == <span class="literal">null</span> ? <span class="literal">null</span> : low.next.next;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -254,10 +491,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-06-25 14:05:56 / 修改时间：15:24:05" itemprop="dateCreated datePublished" datetime="2022-06-25T14:05:56+08:00">2022-06-25</time>
+              <time title="创建时间：2022-06-25 14:05:56" itemprop="dateCreated datePublished" datetime="2022-06-25T14:05:56+08:00">2022-06-25</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-26 18:27:26" itemprop="dateModified" datetime="2022-06-26T18:27:26+08:00">2022-06-26</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -379,6 +622,90 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">maxArea</span><span class="params">(<span class="type">int</span>[] height)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> Integer.MIN_VALUE;</span><br><span class="line">    <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> height.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (left &lt; right)&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> right - left;</span><br><span class="line">        res = Math.max(res,height[left] &gt; height[right] ? height[left] * len : height[right] * len);</span><br><span class="line">        <span class="keyword">if</span> (height[left] &lt; height[right])&#123;</span><br><span class="line">            left++;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            right--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>双指针，从头和尾往里收，谁小谁收</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/22/%E5%9F%BA%E7%A1%80LeetCodeDay1%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
+      <meta itemprop="name" content="Just TC">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Just Do It Later">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/06/22/%E5%9F%BA%E7%A1%80LeetCodeDay1%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="post-title-link" itemprop="url">基础LeetCodeDay1二分查找</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-06-22 17:28:09" itemprop="dateCreated datePublished" datetime="2022-06-22T17:28:09+08:00">2022-06-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-23 11:03:54" itemprop="dateModified" datetime="2022-06-23T11:03:54+08:00">2022-06-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1、给你一个按照非递减顺序排列的整数数组-nums，和一个目标值-target。请你找出给定目标值在数组中的开始位置和结束位置。如果数组中不存在目标值-target，返回-1-1-。你必须设计并实现时间复杂度为-O-log-n-的算法解决此问题。"><a href="#1、给你一个按照非递减顺序排列的整数数组-nums，和一个目标值-target。请你找出给定目标值在数组中的开始位置和结束位置。如果数组中不存在目标值-target，返回-1-1-。你必须设计并实现时间复杂度为-O-log-n-的算法解决此问题。" class="headerlink" title="1、给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。如果数组中不存在目标值 target，返回 [-1, -1]。你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题。"></a>1、给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。如果数组中不存在目标值 target，返回 [-1, -1]。你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] searchRange(<span class="type">int</span>[] nums, <span class="type">int</span> target) &#123;</span><br><span class="line">    <span class="keyword">if</span> (nums.length == <span class="number">1</span> &amp;&amp; nums[<span class="number">0</span>] == target)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="variable">start</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">end</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> nums.length/<span class="number">2</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> nums.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (left &lt;= right)&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[mid] &gt; target)&#123;</span><br><span class="line">            right = mid - <span class="number">1</span>;</span><br><span class="line">            mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[mid] &lt; target)&#123;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">            mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">lLeft</span> <span class="operator">=</span> left;</span><br><span class="line">            <span class="type">int</span> <span class="variable">rRight</span> <span class="operator">=</span> mid - <span class="number">1</span>;</span><br><span class="line">            <span class="type">int</span> <span class="variable">mMid</span>  <span class="operator">=</span> lLeft + (rRight - lLeft) / <span class="number">2</span>;</span><br><span class="line">            start = mid;</span><br><span class="line">            end = mid;</span><br><span class="line">            <span class="keyword">while</span> (lLeft &lt;= rRight)&#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[mMid] == target)&#123;</span><br><span class="line">                    start = mMid;</span><br><span class="line">                    rRight = mMid - <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    lLeft = mMid + <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                mMid  = lLeft + (rRight - lLeft) / <span class="number">2</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            lLeft = mid + <span class="number">1</span>;</span><br><span class="line">            rRight = right;</span><br><span class="line">            mMid  = lLeft + (rRight - lLeft) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">while</span> (lLeft &lt;= rRight)&#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[mMid] == target)&#123;</span><br><span class="line">                    end = mMid;</span><br><span class="line">                    lLeft = mMid + <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    rRight = mMid - <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                mMid  = lLeft + (rRight - lLeft) / <span class="number">2</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;start,end&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>先二分找到target所在的index，然后再次二分寻找target的前后范围</p>
+<h3 id="2、整数数组-nums-按升序排列，数组中的值-互不相同-。在传递给函数之前，nums-在预先未知的某个下标-k（0-lt-k-lt-nums-length）上进行了-旋转，使数组变为-nums-k-nums-k-1-…-nums-n-1-nums-0-nums-1-…-nums-k-1-（下标-从-0-开始-计数）。例如，-0-1-2-4-5-6-7-在下标-3-处经旋转后可能变为-4-5-6-7-0-1-2-。给你-旋转后-的数组-nums-和一个整数-target-，如果-nums-中存在这个目标值-target-，则返回它的下标，否则返回-1-。你必须设计一个时间复杂度为-O-log-n-的算法解决此问题。"><a href="#2、整数数组-nums-按升序排列，数组中的值-互不相同-。在传递给函数之前，nums-在预先未知的某个下标-k（0-lt-k-lt-nums-length）上进行了-旋转，使数组变为-nums-k-nums-k-1-…-nums-n-1-nums-0-nums-1-…-nums-k-1-（下标-从-0-开始-计数）。例如，-0-1-2-4-5-6-7-在下标-3-处经旋转后可能变为-4-5-6-7-0-1-2-。给你-旋转后-的数组-nums-和一个整数-target-，如果-nums-中存在这个目标值-target-，则返回它的下标，否则返回-1-。你必须设计一个时间复杂度为-O-log-n-的算法解决此问题。" class="headerlink" title="2、整数数组 nums 按升序排列，数组中的值 互不相同 。在传递给函数之前，nums 在预先未知的某个下标 k（0 &lt;= k &lt; nums.length）上进行了 旋转，使数组变为 [nums[k], nums[k+1], …, nums[n-1], nums[0], nums[1], …, nums[k-1]]（下标 从 0 开始 计数）。例如， [0,1,2,4,5,6,7] 在下标 3 处经旋转后可能变为 [4,5,6,7,0,1,2] 。给你 旋转后 的数组 nums 和一个整数 target ，如果 nums 中存在这个目标值 target ，则返回它的下标，否则返回 -1 。你必须设计一个时间复杂度为 O(log n) 的算法解决此问题。"></a>2、整数数组 nums 按升序排列，数组中的值 互不相同 。在传递给函数之前，nums 在预先未知的某个下标 k（0 &lt;= k &lt; nums.length）上进行了 旋转，使数组变为 [nums[k], nums[k+1], …, nums[n-1], nums[0], nums[1], …, nums[k-1]]（下标 从 0 开始 计数）。例如， [0,1,2,4,5,6,7] 在下标 3 处经旋转后可能变为 [4,5,6,7,0,1,2] 。给你 旋转后 的数组 nums 和一个整数 target ，如果 nums 中存在这个目标值 target ，则返回它的下标，否则返回 -1 。你必须设计一个时间复杂度为 O(log n) 的算法解决此问题。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">search</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> nums.length - <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right)&#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &gt; target)&#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[left] &gt; target)&#123;</span><br><span class="line">                    <span class="keyword">if</span> (nums[left] &gt; nums[mid])&#123;</span><br><span class="line">                        right = mid - <span class="number">1</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        left = mid + <span class="number">1</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[left] &lt; target)&#123;</span><br><span class="line">                    right = mid - <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    res = left;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[mid] &lt; target)&#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[right] &lt; target)&#123;</span><br><span class="line">                    <span class="keyword">if</span> (nums[right] &lt; nums[mid])&#123;</span><br><span class="line">                        left = mid + <span class="number">1</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        right = mid - <span class="number">1</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[right] &gt; target)&#123;</span><br><span class="line">                    left = mid + <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    res = right;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                res = mid;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>二分思维，但是最低点不一定在最左边，</p>
+<p>所以当mid点小于target的时候，如果最右点nums[right]的值小于nums[mid] 则mid 到 right不是单调递增，则又可推论出left到mid的是单调递增的，所以只有mid到right这一段有机会找到=target的值</p>
+<p>当mid点大于target的时候，如果最左点nums[left]的值大于nums[mid] 则left 到 mid不是单调递增，则又可推论出mid到right的是单调递增的，所以只有left到mid这一段有机会找到=target的值</p>
+<h3 id="3、编写一个高效的算法来判断-m-x-n-矩阵中，是否存在一个目标值。该矩阵具有如下特性：每行中的整数从左到右按升序排列。每行的第一个整数大于前一行的最后一个整数。"><a href="#3、编写一个高效的算法来判断-m-x-n-矩阵中，是否存在一个目标值。该矩阵具有如下特性：每行中的整数从左到右按升序排列。每行的第一个整数大于前一行的最后一个整数。" class="headerlink" title="3、编写一个高效的算法来判断 m x n 矩阵中，是否存在一个目标值。该矩阵具有如下特性：每行中的整数从左到右按升序排列。每行的第一个整数大于前一行的最后一个整数。"></a>3、编写一个高效的算法来判断 m x n 矩阵中，是否存在一个目标值。该矩阵具有如下特性：每行中的整数从左到右按升序排列。每行的第一个整数大于前一行的最后一个整数。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">searchMatrix</span><span class="params">(<span class="type">int</span>[][] matrix, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> matrix.length;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> matrix[<span class="number">0</span>].length;</span><br><span class="line">    <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> m * n - <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> right / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">while</span> (left &lt;= right)&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">val</span> <span class="operator">=</span> matrix[mid / n][mid % n];</span><br><span class="line">        <span class="keyword">if</span> (val &gt; target)&#123;</span><br><span class="line">            right = mid - <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (val &lt; target)&#123;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>简单二分</p>
 
       
     </div>
@@ -559,90 +886,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/22/%E5%9F%BA%E7%A1%80LeetCodeDay1%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="Just TC">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Just Do It Later">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/22/%E5%9F%BA%E7%A1%80LeetCodeDay1%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="post-title-link" itemprop="url">基础LeetCodeDay1二分查找</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-06-22 17:28:09" itemprop="dateCreated datePublished" datetime="2022-06-22T17:28:09+08:00">2022-06-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-23 11:03:54" itemprop="dateModified" datetime="2022-06-23T11:03:54+08:00">2022-06-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1、给你一个按照非递减顺序排列的整数数组-nums，和一个目标值-target。请你找出给定目标值在数组中的开始位置和结束位置。如果数组中不存在目标值-target，返回-1-1-。你必须设计并实现时间复杂度为-O-log-n-的算法解决此问题。"><a href="#1、给你一个按照非递减顺序排列的整数数组-nums，和一个目标值-target。请你找出给定目标值在数组中的开始位置和结束位置。如果数组中不存在目标值-target，返回-1-1-。你必须设计并实现时间复杂度为-O-log-n-的算法解决此问题。" class="headerlink" title="1、给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。如果数组中不存在目标值 target，返回 [-1, -1]。你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题。"></a>1、给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。如果数组中不存在目标值 target，返回 [-1, -1]。你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] searchRange(<span class="type">int</span>[] nums, <span class="type">int</span> target) &#123;</span><br><span class="line">    <span class="keyword">if</span> (nums.length == <span class="number">1</span> &amp;&amp; nums[<span class="number">0</span>] == target)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="variable">start</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">end</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> nums.length/<span class="number">2</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> nums.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (left &lt;= right)&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[mid] &gt; target)&#123;</span><br><span class="line">            right = mid - <span class="number">1</span>;</span><br><span class="line">            mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[mid] &lt; target)&#123;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">            mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">lLeft</span> <span class="operator">=</span> left;</span><br><span class="line">            <span class="type">int</span> <span class="variable">rRight</span> <span class="operator">=</span> mid - <span class="number">1</span>;</span><br><span class="line">            <span class="type">int</span> <span class="variable">mMid</span>  <span class="operator">=</span> lLeft + (rRight - lLeft) / <span class="number">2</span>;</span><br><span class="line">            start = mid;</span><br><span class="line">            end = mid;</span><br><span class="line">            <span class="keyword">while</span> (lLeft &lt;= rRight)&#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[mMid] == target)&#123;</span><br><span class="line">                    start = mMid;</span><br><span class="line">                    rRight = mMid - <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    lLeft = mMid + <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                mMid  = lLeft + (rRight - lLeft) / <span class="number">2</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            lLeft = mid + <span class="number">1</span>;</span><br><span class="line">            rRight = right;</span><br><span class="line">            mMid  = lLeft + (rRight - lLeft) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">while</span> (lLeft &lt;= rRight)&#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[mMid] == target)&#123;</span><br><span class="line">                    end = mMid;</span><br><span class="line">                    lLeft = mMid + <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    rRight = mMid - <span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                mMid  = lLeft + (rRight - lLeft) / <span class="number">2</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;start,end&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>先二分找到target所在的index，然后再次二分寻找target的前后范围</p>
-<h3 id="2、整数数组-nums-按升序排列，数组中的值-互不相同-。在传递给函数之前，nums-在预先未知的某个下标-k（0-lt-k-lt-nums-length）上进行了-旋转，使数组变为-nums-k-nums-k-1-…-nums-n-1-nums-0-nums-1-…-nums-k-1-（下标-从-0-开始-计数）。例如，-0-1-2-4-5-6-7-在下标-3-处经旋转后可能变为-4-5-6-7-0-1-2-。给你-旋转后-的数组-nums-和一个整数-target-，如果-nums-中存在这个目标值-target-，则返回它的下标，否则返回-1-。你必须设计一个时间复杂度为-O-log-n-的算法解决此问题。"><a href="#2、整数数组-nums-按升序排列，数组中的值-互不相同-。在传递给函数之前，nums-在预先未知的某个下标-k（0-lt-k-lt-nums-length）上进行了-旋转，使数组变为-nums-k-nums-k-1-…-nums-n-1-nums-0-nums-1-…-nums-k-1-（下标-从-0-开始-计数）。例如，-0-1-2-4-5-6-7-在下标-3-处经旋转后可能变为-4-5-6-7-0-1-2-。给你-旋转后-的数组-nums-和一个整数-target-，如果-nums-中存在这个目标值-target-，则返回它的下标，否则返回-1-。你必须设计一个时间复杂度为-O-log-n-的算法解决此问题。" class="headerlink" title="2、整数数组 nums 按升序排列，数组中的值 互不相同 。在传递给函数之前，nums 在预先未知的某个下标 k（0 &lt;= k &lt; nums.length）上进行了 旋转，使数组变为 [nums[k], nums[k+1], …, nums[n-1], nums[0], nums[1], …, nums[k-1]]（下标 从 0 开始 计数）。例如， [0,1,2,4,5,6,7] 在下标 3 处经旋转后可能变为 [4,5,6,7,0,1,2] 。给你 旋转后 的数组 nums 和一个整数 target ，如果 nums 中存在这个目标值 target ，则返回它的下标，否则返回 -1 。你必须设计一个时间复杂度为 O(log n) 的算法解决此问题。"></a>2、整数数组 nums 按升序排列，数组中的值 互不相同 。在传递给函数之前，nums 在预先未知的某个下标 k（0 &lt;= k &lt; nums.length）上进行了 旋转，使数组变为 [nums[k], nums[k+1], …, nums[n-1], nums[0], nums[1], …, nums[k-1]]（下标 从 0 开始 计数）。例如， [0,1,2,4,5,6,7] 在下标 3 处经旋转后可能变为 [4,5,6,7,0,1,2] 。给你 旋转后 的数组 nums 和一个整数 target ，如果 nums 中存在这个目标值 target ，则返回它的下标，否则返回 -1 。你必须设计一个时间复杂度为 O(log n) 的算法解决此问题。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">search</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> nums.length - <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right)&#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &gt; target)&#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[left] &gt; target)&#123;</span><br><span class="line">                    <span class="keyword">if</span> (nums[left] &gt; nums[mid])&#123;</span><br><span class="line">                        right = mid - <span class="number">1</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        left = mid + <span class="number">1</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[left] &lt; target)&#123;</span><br><span class="line">                    right = mid - <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    res = left;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[mid] &lt; target)&#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[right] &lt; target)&#123;</span><br><span class="line">                    <span class="keyword">if</span> (nums[right] &lt; nums[mid])&#123;</span><br><span class="line">                        left = mid + <span class="number">1</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        right = mid - <span class="number">1</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[right] &gt; target)&#123;</span><br><span class="line">                    left = mid + <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    res = right;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                res = mid;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>二分思维，但是最低点不一定在最左边，</p>
-<p>所以当mid点小于target的时候，如果最右点nums[right]的值小于nums[mid] 则mid 到 right不是单调递增，则又可推论出left到mid的是单调递增的，所以只有mid到right这一段有机会找到=target的值</p>
-<p>当mid点大于target的时候，如果最左点nums[left]的值大于nums[mid] 则left 到 mid不是单调递增，则又可推论出mid到right的是单调递增的，所以只有left到mid这一段有机会找到=target的值</p>
-<h3 id="3、编写一个高效的算法来判断-m-x-n-矩阵中，是否存在一个目标值。该矩阵具有如下特性：每行中的整数从左到右按升序排列。每行的第一个整数大于前一行的最后一个整数。"><a href="#3、编写一个高效的算法来判断-m-x-n-矩阵中，是否存在一个目标值。该矩阵具有如下特性：每行中的整数从左到右按升序排列。每行的第一个整数大于前一行的最后一个整数。" class="headerlink" title="3、编写一个高效的算法来判断 m x n 矩阵中，是否存在一个目标值。该矩阵具有如下特性：每行中的整数从左到右按升序排列。每行的第一个整数大于前一行的最后一个整数。"></a>3、编写一个高效的算法来判断 m x n 矩阵中，是否存在一个目标值。该矩阵具有如下特性：每行中的整数从左到右按升序排列。每行的第一个整数大于前一行的最后一个整数。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">searchMatrix</span><span class="params">(<span class="type">int</span>[][] matrix, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> matrix.length;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> matrix[<span class="number">0</span>].length;</span><br><span class="line">    <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> m * n - <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> right / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">while</span> (left &lt;= right)&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">val</span> <span class="operator">=</span> matrix[mid / n][mid % n];</span><br><span class="line">        <span class="keyword">if</span> (val &gt; target)&#123;</span><br><span class="line">            right = mid - <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (val &lt; target)&#123;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        mid = left + (right - left) / <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>简单二分</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/22/%E4%B8%AD%E7%BA%A7%E5%85%AC%E5%8F%B8LeetCodeDay2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -707,255 +950,6 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">multiply</span><span class="params">(String num1, String num2)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (num1.equals(<span class="string">&quot;0&quot;</span>) || num2.equals(<span class="string">&quot;0&quot;</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;0&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> num1.length(), n = num2.length();</span><br><span class="line">    <span class="type">int</span>[] ansArr = <span class="keyword">new</span> <span class="title class_">int</span>[m + n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> m - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> num1.charAt(i) - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> n - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> num2.charAt(j) - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">            ansArr[i + j + <span class="number">1</span>] += x * y;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> m + n - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">        ansArr[i - <span class="number">1</span>] += ansArr[i] / <span class="number">10</span>;</span><br><span class="line">        ansArr[i] %= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> ansArr[<span class="number">0</span>] == <span class="number">0</span> ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">    <span class="type">StringBuffer</span> <span class="variable">ans</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>();</span><br><span class="line">    <span class="keyword">while</span> (index &lt; m + n) &#123;</span><br><span class="line">        ans.append(ansArr[index]);</span><br><span class="line">        index++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans.toString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>有点不知道有什么意义。。。。。虽然自己写的比答案满了几十倍。。。。。。。。。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/22/%E4%B8%AD%E7%BA%A7%E5%85%AC%E5%8F%B8LeetCodeDay1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="Just TC">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Just Do It Later">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/22/%E4%B8%AD%E7%BA%A7%E5%85%AC%E5%8F%B8LeetCodeDay1/" class="post-title-link" itemprop="url">LeetCodeDay14队列</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-06-22 14:05:56" itemprop="dateCreated datePublished" datetime="2022-06-22T14:05:56+08:00">2022-06-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-24 11:08:49" itemprop="dateModified" datetime="2022-06-24T11:08:49+08:00">2022-06-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1、编写一个算法来判断一个数-n-是不是快乐数。"><a href="#1、编写一个算法来判断一个数-n-是不是快乐数。" class="headerlink" title="1、编写一个算法来判断一个数 n 是不是快乐数。"></a>1、编写一个算法来判断一个数 n 是不是快乐数。</h3><p>「快乐数」 定义为：</p>
-<p>对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和。<br>然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。<br>如果这个过程 结果为 1，那么这个数就是快乐数。</p>
-<p>如果 n 是 快乐数 就返回 true ；不是，则返回 false 。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">HashMap &lt;Integer,Integer&gt;map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isHappy</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">digit</span> <span class="operator">=</span> (n + <span class="string">&quot;&quot;</span>).length();</span><br><span class="line">    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= digit; i++) &#123;</span><br><span class="line">        num += getDigitPow(n,i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (num == <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (map.containsKey(num))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            map.put(num,num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> isHappy(num);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//取出某位的数字的平方</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">getDigitPow</span><span class="params">(<span class="type">int</span> x,<span class="type">int</span> d)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="type">int</span>)Math.pow(((x / ((<span class="type">int</span>) Math.pow(<span class="number">10</span>, d - <span class="number">1</span>))) % <span class="number">10</span>),<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>快乐数，要么算出来的数循环，要么就归1！！！</p>
-<h3 id="2、给你一个-m-行-n-列的矩阵-matrix-，请按照-顺时针螺旋顺序-，返回矩阵中的所有元素。"><a href="#2、给你一个-m-行-n-列的矩阵-matrix-，请按照-顺时针螺旋顺序-，返回矩阵中的所有元素。" class="headerlink" title="2、给你一个 m 行 n 列的矩阵 matrix ，请按照 顺时针螺旋顺序 ，返回矩阵中的所有元素。"></a>2、给你一个 <code>m</code> 行 <code>n</code> 列的矩阵 <code>matrix</code> ，请按照 <strong>顺时针螺旋顺序</strong> ，返回矩阵中的所有元素。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">spiralOrder</span><span class="params">(<span class="type">int</span>[][] matrix)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span>[]range = <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">0</span>,matrix.length - <span class="number">1</span>,<span class="number">0</span>,matrix[<span class="number">0</span>].length - <span class="number">1</span>&#125;;</span><br><span class="line">    List&lt;Integer&gt; res = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> matrix.length * matrix[<span class="number">0</span>].length;</span><br><span class="line">    <span class="keyword">while</span> (res.size() &lt; length)&#123;</span><br><span class="line">        <span class="keyword">while</span> (n &lt;= range[<span class="number">3</span>] &amp;&amp; res.size() &lt; length)&#123;</span><br><span class="line">            res.add(matrix[m][n++]);</span><br><span class="line">        &#125;</span><br><span class="line">        n--;</span><br><span class="line">        m++;</span><br><span class="line">        <span class="keyword">while</span> (m &lt;= range[<span class="number">1</span>] &amp;&amp; res.size() &lt; length)&#123;</span><br><span class="line">            res.add(matrix[m++][n]);</span><br><span class="line">        &#125;</span><br><span class="line">        m--;</span><br><span class="line">        n--;</span><br><span class="line">        <span class="keyword">while</span> (n &gt;= range[<span class="number">2</span>] &amp;&amp; res.size() &lt; length)&#123;</span><br><span class="line">            res.add(matrix[m][n--]);</span><br><span class="line">        &#125;</span><br><span class="line">        n++;</span><br><span class="line">        m--;</span><br><span class="line">        <span class="keyword">while</span> (m &gt; range[<span class="number">0</span>] &amp;&amp; res.size() &lt; length)&#123;</span><br><span class="line">            res.add(matrix[m--][n]);</span><br><span class="line">        &#125;</span><br><span class="line">        m++;</span><br><span class="line">        n++;</span><br><span class="line">        range[<span class="number">0</span>]++;</span><br><span class="line">        range[<span class="number">1</span>]--;</span><br><span class="line">        range[<span class="number">2</span>]++;</span><br><span class="line">        range[<span class="number">3</span>]--;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>每次循环最外圈，控制好范围即可，等到list里的元素到达需求就退出循环即可</p>
-<h3 id="3、用一个大小为-m-x-n-的二维网格-grid-表示一个箱子。你有-n-颗球。箱子的顶部和底部都是开着的。"><a href="#3、用一个大小为-m-x-n-的二维网格-grid-表示一个箱子。你有-n-颗球。箱子的顶部和底部都是开着的。" class="headerlink" title="3、用一个大小为 m x n 的二维网格 grid 表示一个箱子。你有 n 颗球。箱子的顶部和底部都是开着的。"></a>3、用一个大小为 m x n 的二维网格 grid 表示一个箱子。你有 n 颗球。箱子的顶部和底部都是开着的。</h3><p>箱子中的每个单元格都有一个对角线挡板，跨过单元格的两个角，可以将球导向左侧或者右侧。</p>
-<p>​    将球导向右侧的挡板跨过左上角和右下角，在网格中用 1 表示。<br>​    将球导向左侧的挡板跨过右上角和左下角，在网格中用 -1 表示。</p>
-<p>在箱子每一列的顶端各放一颗球。每颗球都可能卡在箱子里或从底部掉出来。如果球恰好卡在两块挡板之间的 “V” 形图案，或者被一块挡导向到箱子的任意一侧边上，就会卡住。</p>
-<p>返回一个大小为 n 的数组 answer ，其中 answer[i] 是球放在顶部的第 i 列后从底部掉出来的那一列对应的下标，如果球卡在盒子里，则返回 -1 。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] findBall(<span class="type">int</span>[][] grid) &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> grid.length;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> grid[<span class="number">0</span>].length;</span><br><span class="line">    <span class="type">int</span>[]res = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">curRes</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">row</span> <span class="operator">=</span> i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; m ; j++)&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">col</span> <span class="operator">=</span> j;</span><br><span class="line">            <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> grid[col][row];</span><br><span class="line">            <span class="keyword">if</span> ((row == <span class="number">0</span> &amp;&amp; num == -<span class="number">1</span>) || (row == n - <span class="number">1</span> &amp;&amp; num == <span class="number">1</span>)</span><br><span class="line">            || (num == <span class="number">1</span> &amp;&amp; grid[col][row + <span class="number">1</span>] != <span class="number">1</span>) || (num == -<span class="number">1</span> &amp;&amp; grid[col][row - <span class="number">1</span>] != -<span class="number">1</span>))&#123;</span><br><span class="line">                curRes = -<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (num == <span class="number">1</span>)&#123;</span><br><span class="line">                row++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                row--;</span><br><span class="line">            &#125;</span><br><span class="line">            curRes = row;</span><br><span class="line">        &#125;</span><br><span class="line">        res[i] = curRes;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>根据轨道形状算</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span>[] findBall(<span class="type">int</span>[][] grid) &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> grid[<span class="number">0</span>].length;</span><br><span class="line">    <span class="type">int</span>[] ans = <span class="keyword">new</span> <span class="title class_">int</span>[n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">col</span> <span class="operator">=</span> j;  <span class="comment">// 球的初始列</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span>[] row : grid) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">dir</span> <span class="operator">=</span> row[col];</span><br><span class="line">            col += dir;  <span class="comment">// 移动球</span></span><br><span class="line">            <span class="keyword">if</span> (col &lt; <span class="number">0</span> || col == n || row[col] != dir) &#123;  <span class="comment">// 到达侧边或 V 形</span></span><br><span class="line">                col = -<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ans[j] = col;  <span class="comment">// col &gt;= 0 为成功到达底部</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>根据球的移动轨迹也可以算</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/22/%E5%89%91%E6%8C%87LeetCodeDay15%E9%98%9F%E5%88%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="Just TC">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Just Do It Later">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/22/%E5%89%91%E6%8C%87LeetCodeDay15%E9%98%9F%E5%88%97/" class="post-title-link" itemprop="url">LeetCodeDay14队列</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-06-22 14:05:56" itemprop="dateCreated datePublished" datetime="2022-06-22T14:05:56+08:00">2022-06-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-06-23 16:32:14" itemprop="dateModified" datetime="2022-06-23T16:32:14+08:00">2022-06-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1、给定一棵二叉树的根节点-root-，请找出该二叉树中每一层的最大值。"><a href="#1、给定一棵二叉树的根节点-root-，请找出该二叉树中每一层的最大值。" class="headerlink" title="1、给定一棵二叉树的根节点 root ，请找出该二叉树中每一层的最大值。"></a>1、给定一棵二叉树的根节点 <code>root</code> ，请找出该二叉树中每一层的最大值。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">largestValues</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt;res = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    Queue&lt;TreeNode&gt; deque = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">    deque.offer(root);</span><br><span class="line">    <span class="type">TreeNode</span> <span class="variable">curLastNode</span> <span class="operator">=</span> root;</span><br><span class="line">    <span class="type">TreeNode</span> <span class="variable">nextLastNode</span> <span class="operator">=</span> root;</span><br><span class="line">    <span class="type">int</span> <span class="variable">curMax</span> <span class="operator">=</span> Integer.MIN_VALUE;</span><br><span class="line">    <span class="keyword">while</span> (deque.size() &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="type">TreeNode</span> <span class="variable">node</span> <span class="operator">=</span> deque.poll();</span><br><span class="line">        <span class="keyword">if</span> (node.left != <span class="literal">null</span>)&#123;</span><br><span class="line">            deque.offer(node.left);</span><br><span class="line">            nextLastNode = node.left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (node.right != <span class="literal">null</span>)&#123;</span><br><span class="line">            deque.offer(node.right);</span><br><span class="line">            nextLastNode = node.right;</span><br><span class="line">        &#125;</span><br><span class="line">        curMax = Math.max(curMax,node.val);</span><br><span class="line">        <span class="keyword">if</span> (curLastNode == node)&#123;</span><br><span class="line">            res.add(curMax);</span><br><span class="line">            curLastNode = nextLastNode;</span><br><span class="line">            curMax = Integer.MIN_VALUE;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、给定一个二叉树的-根节点-root，请找出该二叉树的-最底层-最左边-节点的值。假设二叉树中至少有一个节点。"><a href="#2、给定一个二叉树的-根节点-root，请找出该二叉树的-最底层-最左边-节点的值。假设二叉树中至少有一个节点。" class="headerlink" title="2、给定一个二叉树的 根节点 root，请找出该二叉树的 **最底层 最左边 **节点的值。假设二叉树中至少有一个节点。"></a>2、给定一个二叉树的 <strong>根节点</strong> <code>root</code>，请找出该二叉树的 **最底层 最左边 **节点的值。假设二叉树中至少有一个节点。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">findBottomLeftValue</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    Queue&lt;TreeNode&gt; deque = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">    deque.offer(root);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!deque.isEmpty())&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> deque.size();</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">left</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">while</span> (size &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            size--;</span><br><span class="line">            <span class="type">TreeNode</span> <span class="variable">node</span> <span class="operator">=</span> deque.poll();</span><br><span class="line">            <span class="keyword">if</span> (!left)&#123;</span><br><span class="line">                res = node.val;</span><br><span class="line">                left = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (node.left != <span class="literal">null</span>)&#123;</span><br><span class="line">                deque.offer(node.left);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (node.right != <span class="literal">null</span>)&#123;</span><br><span class="line">                deque.offer(node.right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>宽度优先遍历</p>
-<h3 id="3、给定一个二叉树的-根节点-root，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。"><a href="#3、给定一个二叉树的-根节点-root，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。" class="headerlink" title="3、给定一个二叉树的 根节点 root，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。"></a>3、给定一个二叉树的 <strong>根节点</strong> <code>root</code>，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title function_">rightSideView</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    List&lt;Integer&gt; res = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    Queue&lt;TreeNode&gt; deque = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">    deque.offer(root);</span><br><span class="line">    <span class="keyword">while</span> (!deque.isEmpty())&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> deque.size();</span><br><span class="line">        <span class="type">int</span> <span class="variable">rightVal</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (size &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            size--;</span><br><span class="line">            <span class="type">TreeNode</span> <span class="variable">node</span> <span class="operator">=</span> deque.poll();</span><br><span class="line">            <span class="keyword">if</span> (node.left != <span class="literal">null</span>)&#123;</span><br><span class="line">                deque.offer(node.left);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (node.right != <span class="literal">null</span>)&#123;</span><br><span class="line">                deque.offer(node.right);</span><br><span class="line">            &#125;</span><br><span class="line">            rightVal = node.val;</span><br><span class="line">        &#125;</span><br><span class="line">        res.add(rightVal);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>宽度优先遍历，翻来覆去的考，无语凝噎。。。。。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/22/%E5%89%91%E6%8C%87LeetCodeDay14%E9%98%9F%E5%88%97/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/%E5%A4%B4%E5%83%8F.jpg">
-      <meta itemprop="name" content="Just TC">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Just Do It Later">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/06/22/%E5%89%91%E6%8C%87LeetCodeDay14%E9%98%9F%E5%88%97/" class="post-title-link" itemprop="url">LeetCodeDay14队列</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-06-22 14:05:56 / 修改时间：15:34:49" itemprop="dateCreated datePublished" datetime="2022-06-22T14:05:56+08:00">2022-06-22</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1、给定一个整数数据流和一个窗口大小，根据该滑动窗口的大小，计算滑动窗口里所有数字的平均值。实现-MovingAverage-类：MovingAverage-int-size-用窗口大小-size-初始化对象。double-next-int-val-成员函数-next-每次调用的时候都会往滑动窗口增加一个整数，请计算并返回数据流中最后-size-个值的移动平均值，即滑动窗口里所有数字的平均值。"><a href="#1、给定一个整数数据流和一个窗口大小，根据该滑动窗口的大小，计算滑动窗口里所有数字的平均值。实现-MovingAverage-类：MovingAverage-int-size-用窗口大小-size-初始化对象。double-next-int-val-成员函数-next-每次调用的时候都会往滑动窗口增加一个整数，请计算并返回数据流中最后-size-个值的移动平均值，即滑动窗口里所有数字的平均值。" class="headerlink" title="1、给定一个整数数据流和一个窗口大小，根据该滑动窗口的大小，计算滑动窗口里所有数字的平均值。实现 MovingAverage 类：MovingAverage(int size) 用窗口大小 size 初始化对象。double next(int val) 成员函数 next 每次调用的时候都会往滑动窗口增加一个整数，请计算并返回数据流中最后 size 个值的移动平均值，即滑动窗口里所有数字的平均值。"></a>1、给定一个整数数据流和一个窗口大小，根据该滑动窗口的大小，计算滑动窗口里所有数字的平均值。实现 MovingAverage 类：MovingAverage(int size) 用窗口大小 size 初始化对象。double next(int val) 成员函数 next 每次调用的时候都会往滑动窗口增加一个整数，请计算并返回数据流中最后 size 个值的移动平均值，即滑动窗口里所有数字的平均值。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MovingAverage</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> size;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">double</span> num;</span><br><span class="line">    Deque&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    <span class="comment">/** Initialize your data structure here. */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MovingAverage</span><span class="params">(<span class="type">int</span> size)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.size = size;</span><br><span class="line">        num = <span class="number">0.0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">double</span> <span class="title function_">next</span><span class="params">(<span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (list.size() &gt;= size)&#123;</span><br><span class="line">            num -=  list.pollLast();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        list.addFirst(val);</span><br><span class="line">        num += val;</span><br><span class="line">        <span class="type">return</span> <span class="variable">num</span> <span class="operator">=</span>= <span class="number">0</span> ? <span class="number">0.00</span> : num / list.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>没啥好说的。。。</p>
-<h3 id="2、写一个-RecentCounter-类来计算特定时间范围内最近的请求。请实现-RecentCounter-类：RecentCounter-初始化计数器，请求数为-0-。int-ping-int-t-在时间-t-添加一个新请求，其中-t-表示以毫秒为单位的某个时间，并返回过去-3000-毫秒内发生的所有请求数（包括新请求）。确切地说，返回在-t-3000-t-内发生的请求数。保证-每次对-ping-的调用都使用比之前更大的-t-值。"><a href="#2、写一个-RecentCounter-类来计算特定时间范围内最近的请求。请实现-RecentCounter-类：RecentCounter-初始化计数器，请求数为-0-。int-ping-int-t-在时间-t-添加一个新请求，其中-t-表示以毫秒为单位的某个时间，并返回过去-3000-毫秒内发生的所有请求数（包括新请求）。确切地说，返回在-t-3000-t-内发生的请求数。保证-每次对-ping-的调用都使用比之前更大的-t-值。" class="headerlink" title="2、写一个 RecentCounter 类来计算特定时间范围内最近的请求。请实现 RecentCounter 类：RecentCounter() 初始化计数器，请求数为 0 。int ping(int t) 在时间 t 添加一个新请求，其中 t 表示以毫秒为单位的某个时间，并返回过去 3000 毫秒内发生的所有请求数（包括新请求）。确切地说，返回在 [t-3000, t] 内发生的请求数。保证 每次对 ping 的调用都使用比之前更大的 t 值。"></a>2、写一个 RecentCounter 类来计算特定时间范围内最近的请求。请实现 RecentCounter 类：RecentCounter() 初始化计数器，请求数为 0 。int ping(int t) 在时间 t 添加一个新请求，其中 t 表示以毫秒为单位的某个时间，并返回过去 3000 毫秒内发生的所有请求数（包括新请求）。确切地说，返回在 [t-3000, t] 内发生的请求数。保证 每次对 ping 的调用都使用比之前更大的 t 值。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">RecentCounter</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Deque&lt;Integer&gt;list;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">RecentCounter</span><span class="params">()</span> &#123;</span><br><span class="line">        list = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">ping</span><span class="params">(<span class="type">int</span> t)</span> &#123;</span><br><span class="line">        list.addFirst(t);</span><br><span class="line">        <span class="keyword">while</span> (list.peekLast() &lt; t - <span class="number">3000</span>)&#123;</span><br><span class="line">            list.pollLast();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3、完全二叉树是每一层（除最后一层外）都是完全填充（即，节点数达到最大，第-n-层有-2n-1-个节点）的，并且所有的节点都尽可能地集中在左侧。设计一个用完全二叉树初始化的数据结构-CBTInserter，它支持以下几种操作：CBTInserter-TreeNode-root-使用根节点为-root-的给定树初始化该数据结构；CBTInserter-insert-int-v-向树中插入一个新节点，节点类型为-TreeNode，值为-v-。使树保持完全二叉树的状态，并返回插入的新节点的父节点的值；CBTInserter-get-root-将返回树的根节点。"><a href="#3、完全二叉树是每一层（除最后一层外）都是完全填充（即，节点数达到最大，第-n-层有-2n-1-个节点）的，并且所有的节点都尽可能地集中在左侧。设计一个用完全二叉树初始化的数据结构-CBTInserter，它支持以下几种操作：CBTInserter-TreeNode-root-使用根节点为-root-的给定树初始化该数据结构；CBTInserter-insert-int-v-向树中插入一个新节点，节点类型为-TreeNode，值为-v-。使树保持完全二叉树的状态，并返回插入的新节点的父节点的值；CBTInserter-get-root-将返回树的根节点。" class="headerlink" title="3、完全二叉树是每一层（除最后一层外）都是完全填充（即，节点数达到最大，第 n 层有 2n-1 个节点）的，并且所有的节点都尽可能地集中在左侧。设计一个用完全二叉树初始化的数据结构 CBTInserter，它支持以下几种操作：CBTInserter(TreeNode root) 使用根节点为 root 的给定树初始化该数据结构；CBTInserter.insert(int v)  向树中插入一个新节点，节点类型为 TreeNode，值为 v 。使树保持完全二叉树的状态，并返回插入的新节点的父节点的值；CBTInserter.get_root() 将返回树的根节点。"></a>3、完全二叉树是每一层（除最后一层外）都是完全填充（即，节点数达到最大，第 n 层有 2n-1 个节点）的，并且所有的节点都尽可能地集中在左侧。设计一个用完全二叉树初始化的数据结构 CBTInserter，它支持以下几种操作：CBTInserter(TreeNode root) 使用根节点为 root 的给定树初始化该数据结构；CBTInserter.insert(int v)  向树中插入一个新节点，节点类型为 TreeNode，值为 v 。使树保持完全二叉树的状态，并返回插入的新节点的父节点的值；CBTInserter.get_root() 将返回树的根节点。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CBTInserter</span> &#123;</span><br><span class="line">    TreeNode root;</span><br><span class="line">    Deque&lt;TreeNode&gt;deque = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CBTInserter</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.root = root;</span><br><span class="line">        Deque&lt;TreeNode&gt;deque = <span class="keyword">new</span> <span class="title class_">ArrayDeque</span>&lt;&gt;();</span><br><span class="line">        deque.addFirst(root);</span><br><span class="line">        <span class="keyword">while</span> (!deque.isEmpty())&#123;</span><br><span class="line">            <span class="type">TreeNode</span> <span class="variable">pollNode</span> <span class="operator">=</span> deque.pollLast();</span><br><span class="line">            <span class="keyword">if</span> (pollNode.left == <span class="literal">null</span> || pollNode.right == <span class="literal">null</span>)&#123;</span><br><span class="line">                <span class="built_in">this</span>.deque.addFirst(pollNode);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (pollNode.left != <span class="literal">null</span>)&#123;</span><br><span class="line">                deque.addFirst(pollNode.left);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (pollNode.right != <span class="literal">null</span>)&#123;</span><br><span class="line">                deque.addFirst(pollNode.right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">insert</span><span class="params">(<span class="type">int</span> v)</span> &#123;</span><br><span class="line">        <span class="type">TreeNode</span> <span class="variable">newNode</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TreeNode</span>(v);</span><br><span class="line">        deque.addFirst(newNode);</span><br><span class="line">        <span class="type">TreeNode</span> <span class="variable">lastNode</span> <span class="operator">=</span> deque.peekLast();</span><br><span class="line">        <span class="keyword">if</span> (lastNode.left == <span class="literal">null</span>)&#123;</span><br><span class="line">            lastNode.left = newNode;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            lastNode.right = newNode;</span><br><span class="line">            deque.pollLast();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lastNode.val;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> TreeNode <span class="title function_">get_root</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>宽度优先遍历，保存左右节点不全的节点</p>
-<p>insert的时候先看deque队尾的节点左子节点是否有节点，没有则将insert的节点挂在这里，有的话将insert的节点挂在右子节点，并将次节点拿出队列</p>
 
       
     </div>
@@ -1042,7 +1036,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1055,7 +1049,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
